@@ -2,14 +2,19 @@ const db = require("../models/user");
 
 // Defining methods for the weightLiftController
 module.exports = {
-    // login 
-  findById: function (req, res) {
-    db
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  // login 
+  authUser: function(req, res){
+    db.select('username').from('User')
+      .then(items => {
+        if (items.length) {
+          res.json(items)
+        } else {
+          res.json({ dataExists: 'false' })
+        }
+      })
+      .catch(err => res.status(400).json({ dbError: 'db error' }))
   },
-  create: function (req, res) {
+  createUser: function (req, res) {
     let newUser = {
       "username": req.body.username || -1,
       "password": req.body.password || -1,
