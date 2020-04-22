@@ -4,18 +4,6 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-//creat connection
-
-const connection = pg.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "test",
-    database: "tsaGame"
-});
-
-connection.connect(err => {
-    if(err){return err};
-});
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,6 +13,16 @@ if (process.env.NODE_ENV === "production") {
 }
 // Add routes, both API and view
 app.use(routes);
+const connection = pg.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "test",
+  database: "tsaGame"
+});
+// Connect to the Mongo DB
+// pg.connect(process.env.MONGODB_URI || "mongodb://localhost/liftnrun",
+//   { useNewUrlParser: true },
+//   { useUnifiedTopology: true });
 
 // Start the API server
 app.listen(PORT, function () {
