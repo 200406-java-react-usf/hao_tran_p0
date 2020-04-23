@@ -6,11 +6,11 @@ const pg = require("pg");
 //controllers
 
 //models
-require('./data/models/User');
-require('./data/models/Article');
-require('./data/models/Comment');
-//
-require('./config/passport');
+// require('./data/models/User');
+// require('./data/models/Article');
+// require('./data/models/Comment');
+// //
+// require('./config/passport');
 
 // //connect to db
 // const connection = pg.createConnection({
@@ -26,15 +26,15 @@ require('./config/passport');
 
 // Express App
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-require("./app/routing/apiRoutes.js")(app);
-require("./app/routing/htmlRoutes.js")(app);
+// require("./app/routing/apiRoutes.js")(app);
+// require("./app/routing/htmlRoutes.js")(app);
 
 
 app.listen(PORT, function() {
