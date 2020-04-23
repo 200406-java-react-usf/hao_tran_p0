@@ -12,7 +12,6 @@ module.exports = function (app) {
             }
         });
     });
-    app.get("/profile/:username")
     app.post("/newUser", function (req, res) {
         const user = req.body;
 
