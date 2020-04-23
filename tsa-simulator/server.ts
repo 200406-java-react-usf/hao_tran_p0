@@ -1,10 +1,16 @@
 // Dependencies
-import express from "express";
+const express = require("express");
 //import path from "path";
 //import bodyParser from "body-parser";
-import pg from  "pg"
+const pg = require("pg");
 //controllers
 
+//models
+require('./data/models/User');
+require('./data/models/Article');
+require('./data/models/Comment');
+//
+require('./config/passport');
 
 // //connect to db
 // const connection = pg.createConnection({
