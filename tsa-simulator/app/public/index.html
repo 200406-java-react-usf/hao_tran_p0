@@ -4,6 +4,8 @@
 <head>
     <title>TSA Simulator</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="./javascripts/login.ts"></script>
+    <script src="./javascripts/game.ts"></script>
 </head>
 
 <body>
@@ -20,14 +22,14 @@
                     </div>
                 </form>
                 <div class="text-center">
-                    <button id="loginsubmitBtn" type="submit" class="btn btn-success btn-lg">Submit</button>
+                    <button id="loginSubmitBtn" type="submit" class="btn btn-success btn-lg">Submit</button>
                 </div>
             </div>
             <div id=register>
                 <form>
                     <div class="form-group" id=register>
-                        <input id="name" type="text" class="form-control" placeholder="UserName (Required)">
-                        <input id="name" type="text" class="form-control" placeholder="Password (Required)">
+                        <input id="username" type="text" class="form-control" placeholder="UserName (Required)">
+                        <input id="password" type="text" class="form-control" placeholder="Password (Required)">
                     </div>
                 </form>
                 <div class="text-center">
@@ -39,8 +41,13 @@
             <div id=name></div>
             <div id=attemps></div>
             <div id=rank></div>
+            <div id=newGame></div>
         </div>
         <div id=game>
+            <div id=eventview>
+                <div id=hide></div>
+                <div id=show></div>
+            </div>
             <div id=passport>
                 <div id=photo></div>
                 <div id=name>
@@ -50,13 +57,14 @@
                 <div id=origin></div>
                 <div id=possesion></div>
                 <div id=occupation></div>
-            </div>
-            <div id=choice>
-                <div id=approve></div>
-                <div id=deny></div>
+
+                <div id=choice>
+                    <div id=approve></div>
+                    <div id=deny></div>
+                </div>
             </div>
         </div>
     </div>
 </body>
-<script src="./javascripts/loginPage.ts"></script>
+
 </html>
