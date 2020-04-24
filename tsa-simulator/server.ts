@@ -1,21 +1,31 @@
 // Dependencies
-var express = require("express");
+const express = require("express");
+const path = require('path')
 //var path = require("path");
 //var bodyParser = require("body-parser");
 
 
 // Express App
-var app = express();
-var PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 8080;
 
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.set('views', path.join(__dirname, 'views'));
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
-//require("./app/routing/apiRoutes.js")(app);
-require("./app/route/htmlRoutes.ts")(app);
 
+
+
+
+//to routing page
+require("./route/htmlRoutes.ts")(app);
+
+//server setup
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
 });
+
+
