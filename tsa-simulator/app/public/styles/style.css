@@ -146,44 +146,49 @@ hr {
                 background-position 0.6s 0.51s ease;
     transform: translateY(-50%);
 }
-.box:hover {
+/* .box:hover {
+    width: 100%;
+    height: 50%;
+    background-position: -300px 0px;
+} */
+.boxclicked {
     width: 100%;
     height: 50%;
     background-position: -300px 0px;
 }
-.box:hover .cube {
-    top: -120px;
-    left: 25%;
+.boxclicked .cube {
+    top: -120px !important;
+    left: 25% !important;
     transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1) translateY(50px) translateX(-220px);
 }
-.box:hover .cube .cube_front {
+.boxclicked .cube .cube_front {
     transform: translateZ(5px) rotatey(-179deg);
 }
-.box:hover .cube .page_left {
+.boxclicked .cube .page_left {
     transform: translateZ(5px) rotatey(-180deg);
 }
-.box:hover .description {
-    left: 426px;
-    top: -10px;
+.boxclicked .description {
+    left: 426px !important;
+    top: -10px !important;
     height: 160px;
     width: 200px;
 }
-.box:hover .pink {
-    transform: scale(1) rotate(-10deg);
-    transition: all 0.7s 0.3s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+.boxclicked .pink {
+    transform: scale(1) rotate(-10deg)  !important;
+    transition: all 0.7s 0.3s cubic-bezier(0.815, 0.005, 0.18, 1.005)  !important;
 }
-.box:hover .holder {
+.boxclicked .holder {
     width: 100%;
 }
-.box:hover .holder .btnContainer {
-    top: 30px;
+.boxclicked .holder .btnContainer {
+    top: 30px !important;
 }
-.box:hover .big {
+.boxclicked .big {
     opacity: 1;
-    top: 70px;
-    left: 50.5%;
+    top: 70px !important;
+    left: 50.5% !important;
 }
-.box:hover .button {
+.boxclicked .button {
     z-index: 3;
     bottom: 82px;
     left: 510px;
