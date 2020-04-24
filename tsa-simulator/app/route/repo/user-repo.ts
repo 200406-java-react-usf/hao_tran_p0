@@ -1,14 +1,14 @@
 
 import { CrudRepository } from "./crud-repo";
-import { User } from "../../data/model/user";
+import User from "../../data/model/user";
 
 export class UserRepository implements CrudRepository<User> {
-    getAll(): Promise<User[]> {
+    getAll(req, res): Promise<User[]> {
         return new Promise<User>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: number): Promise<User> {
+    getById(req, resr): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             
             if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {

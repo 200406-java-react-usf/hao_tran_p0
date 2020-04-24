@@ -1,6 +1,6 @@
 
 import { CrudRepository } from "./crud-repo";
-import { Passport } from "../../data/model/passport";
+import Passport from "../../data/model/passport";
 
 export class PassportRepository implements CrudRepository<Passport> {
     getAll(): Promise<Passport[]> {

@@ -1,26 +1,100 @@
 <!DOCTYPE html>
 <html>
+<!-- css model by    
+-# Author: Jamie Coulter
+    -# Date: 08.03.2017 -->
 
 <head>
     <title>TSA Simulator</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <script src="./javascripts/login.ts"></script>
-    <script src="./javascripts/game.ts"></script>
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+    <script src="./javascripts/loginPage.ts"></script>
+    <!-- <script src="./javascripts/game.ts"></script> -->
 </head>
 
 <body>
-    <div class="title">TSA Simulator</h1>
-        <div id="logInContainer">
-            <p>Log in</p>
-            <div class=btn id=signUp>signUp</div>
-            <div class=btn id=register>register</div>
-            <div id=login>
-                <form>
-                    <div class="form-group" id=login>
-                        <input id="username" type="text" class="form-control" placeholder="UserName (Required)">
-                        <input id="password" type="text" class="form-control" placeholder="Password (Required)">
+    <div class="box">
+        <!-- <div class="pink">
+            Latest edition
+        </div> -->
+        <div class="holder">
+            <div class="btnContainer">
+                <div class=binaryBtn id=signUpBtn>Sign Up</div>
+                <div class=binarySeparator></div>
+                <div class=binaryBtnUnclicked id=registerBtn>Register</div>
+            </div>
+            <div class="big">
+                <div id=login class=show>
+                    <form>
+                        <p>LOGIN</p>
+                        <div class="form-group" id=loginInfo>
+                            <div class=inputContainer>USERNAME</div>
+                            <input id="username" type="text" class="form-control" placeholder="User Name (Required)">
+
+                            <div class=inputContainer>PASSWORD</div>
+                            <input id="password" type="text" class="form-control" placeholder="Password (Required)">
+                        </div>
+                    </form>
+                    <div class="pink">
+                        Submit
                     </div>
-                </form>
+                </div>
+                <div id=register class=hide>
+                    <form>
+                        <p>REGISTER</p>
+                        <div class="form-group" id=loginInfo>
+                            <div class=inputContainer>USERNAME</div>
+                            <input id="username" type="text" class="form-control" placeholder="User Name (Required)">
+
+                            <div class=inputContainer>PASSWORD</div>
+                            <input id="password" type="text" class="form-control" placeholder="Password (Required)">
+                        </div>
+                    </form>
+                    <div class="pink">
+                        Submit
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="description">
+            <h1>An awesome magazine for you</h1>
+            <hr />
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae dui lobortis, rhoncus neque id, lacinia
+                leo. Cras vitae tempus nulla, at lacinia metus. Suspendisse urna lorem.</p>
+        </div> -->
+        <div class="cube">
+            <div class="cube_inner">
+                <div class="cube_front"></div>
+                <div class="page_left"></div>
+                <div class="page_right"></div>
+                <div class="cube_back"></div>
+                <div class="cube_left"></div>
+                <div class="cube_right"></div>
+                <div class="cube_top"></div>
+                <div class="cube_bottom"></div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="title">TSA Simulator</h1>
+        <div id=container>
+            <div id="logInContainer">
+                <p>Log in</p>
+                <div class="btnContainer">
+                    <div class=binaryBtn id=signUp>signUp</div>
+                    <div class=binaryBtnUnclicked id=register>register</div>
+                </div>
+                <div id=login>
+                    <form>
+                        <div class="form-group" id=login>
+                            <div class=inputContainer>USERNAME </div>
+                            <input id="username" type="text" class="form-control" placeholder="User Name (Required)">
+
+                            <div class=inputContainer>PASSWORD</div>
+                            <input id="password" type="text" class="form-control" placeholder="Password (Required)">
+
+                        </div>
+                    </form>
+                </div>
+
                 <div class="text-center">
                     <button id="loginSubmitBtn" type="submit" class="btn btn-success btn-lg">Submit</button>
                 </div>
@@ -65,6 +139,8 @@
             </div>
         </div>
     </div>
+    </div>
+    </div> -->
 </body>
 
 </html>
