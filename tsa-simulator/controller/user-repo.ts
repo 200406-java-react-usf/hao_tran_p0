@@ -1,6 +1,6 @@
 
 import { CrudRepository } from "./crud-repo";
-import User from "../../data/model/user";
+// import User from "../../data/model/user";
 
 export class UserRepository implements CrudRepository<User> {
     getAll(req, res): Promise<User[]> {
