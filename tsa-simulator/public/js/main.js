@@ -11,15 +11,21 @@ window.onload = function () {
             password: (document.getElementById("passwordLogin"))["value"],
         };
         let currentURL = window.location.origin;
+        app.post(currentURL + "/auth", user, function (results) {
+            if (res.body.result == true) {
+                start();
+            } else {
+                alert("wrong password");
+            }
+        });
+    }
+    function start() {
         console.log(user);
         new Promise((resolve, reject) => {
             setTimeout(() => {
-                console.log("connect db");
-            }, 500);
-        }).then(
-            setTimeout(() => {
                 document.getElementById("cube1").classList.add("inactive");
             }, 1000)
+        }
         ).then(
             setTimeout(() => {
                 document.getElementById("cube1").classList.add("hide");
@@ -82,19 +88,19 @@ window.onload = function () {
             }
 
         };
-
+        // login
         document.getElementById("loginSubmitBtn").onclick = function (event) {
             console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
             submit();
         };
-
+        // register
         document.getElementById("registerSubmitBtn").onclick = function (event) {
             console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
-            document.getElementById("cube1").classList.add("inactive");
+            submit();
         };
     }
     listeners()
