@@ -37,6 +37,7 @@
     "@types/node": "^12.12.37",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
+    "ejs": "^1.0.0",
     "eslint": "^6.8.0",
     "jest": "^25.3.0",
     "morgan": "^1.10.0",

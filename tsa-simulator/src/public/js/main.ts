@@ -36,7 +36,7 @@ window.onload = function () {
             document.getElementById("cube2").classList.remove("inactive");
             await timeout(500);
 
-            main()
+            res.render('index', {weather: weatherText, error: null});
         });
     };
     function submit() {
@@ -48,7 +48,6 @@ window.onload = function () {
         xhr.open("POST", "/auth", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({user}));
-        showProfile();
     }
     //show sign up || register
     function listeners() {

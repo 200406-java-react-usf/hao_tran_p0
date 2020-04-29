@@ -10,13 +10,13 @@ export const UserRouter = express.Router();
 
 const userService = AppConfig.userService;
 
-UserRouter.get('/:username', async (req, resp) => {
+UserRouter.get('/:username', async (req, res) => {
     const username = req.body.username;
     try {
         let payload = await userService.getByUsername(username);
-        return resp.status(200).json(payload);
+        res.render('index', {profile: payload, error: null});
     } catch (e) {
-        return resp.status(e.statusCode).json(e).send();
+        return res.status(e.statusCode).json(e).send();
     }
 });
 
