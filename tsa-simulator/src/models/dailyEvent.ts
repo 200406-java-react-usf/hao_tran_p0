@@ -1,4 +1,4 @@
-export class Event {
+export class DailyEvent {
 
     id: number;
     title: string;

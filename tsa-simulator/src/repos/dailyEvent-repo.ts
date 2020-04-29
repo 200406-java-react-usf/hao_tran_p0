@@ -1,22 +1,21 @@
 import { CrudRepository } from "./crud-repo";
-import { Event } from "../models/event";
-import { Group } from "../models/groups";
+import { DailyEvent } from "../models/dailyEvent";
 const db = require('ts-postgres');
 
-export class EventRepository implements CrudRepository<Event> {
-    getAll(): Promise<Event[]> {
-        return new Promise<Event[]>((resolve, reject) => {
+export class DailyEventRepository implements CrudRepository<DailyEvent> {
+    getAll(): Promise<DailyEvent[]> {
+        return new Promise<DailyEvent[]>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: Number): Promise<Event> {
-        return new Promise<Event>((resolve, reject) => {
+    getById(id: Number): Promise<DailyEvent> {
+        return new Promise<DailyEvent>((resolve, reject) => {
             
             if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
                 reject("BadRequestError");
                 return;
             }
-            let query: String = "SELECT id FROM events WHERE id = $id";
+            let query: String = "SELECT id FROM dailyEvents WHERE id = $id";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
@@ -31,7 +30,7 @@ export class EventRepository implements CrudRepository<Event> {
     }
     getUnselected(): Promise<[Number]> {
         return new Promise<[Number]>((resolve, reject) => {
-            let query: String = "SELECT selected FROM events WHERE selected = false";
+            let query: String = "SELECT selected FROM dailyEvents WHERE selected = false";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
@@ -45,9 +44,9 @@ export class EventRepository implements CrudRepository<Event> {
             });
         });
     }
-    updateSelected(id: Number): Promise<Event[]> {
-        return new Promise<Event[]>((resolve, reject) => {
-            let query: String = "UPDATE events SET selected = true WHERE id= $id;";
+    updateSelected(id: Number): Promise<DailyEvent[]> {
+        return new Promise<DailyEvent[]>((resolve, reject) => {
+            let query: String = "UPDATE dailyEvents SET selected = true WHERE id= $id;";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
@@ -56,13 +55,13 @@ export class EventRepository implements CrudRepository<Event> {
             });
         });
     }
-    save(newEvent: Event): Promise<Event> {
-        return new Promise<Event>((resolve, reject) => {
+    save(newEvent: DailyEvent): Promise<DailyEvent> {
+        return new Promise<DailyEvent>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
     }
 
-    update(updatedEvent: Event): Promise<boolean> {
+    update(updatedEvent: DailyEvent): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
