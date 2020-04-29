@@ -1,4 +1,4 @@
-export class Passport {
+export class Group {
     
     id: number;
     groupName: string;

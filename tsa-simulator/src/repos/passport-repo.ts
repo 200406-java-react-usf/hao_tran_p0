@@ -15,7 +15,7 @@ export class PassportRepository implements CrudRepository<Passport> {
                 reject("BadRequestError");
                 return;
             }
-            let query: String = "SELECT id FROM users WHERE id = $id";
+            let query: String = "SELECT id FROM passports WHERE id = $id";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);

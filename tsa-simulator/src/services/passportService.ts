@@ -1,4 +1,3 @@
-import { User } from "../models/user";
 import { PassportRepository } from "../repos/passport-repo";
 // import { isValidId, isValidStrings, isValidObject, isPropertyOf, isEmptyObject } from "../util/validator";
 import { 
@@ -24,12 +23,6 @@ export class PassportService {
             // if (isEmptyObject(user)) {
             //     return reject(new ResourceNotFoundError());
             // }
-            resolve(nextPassport);
-        });
-    }
-    checkEntrance(): Promise<Number> {
-        return new Promise<Passport>(async (resolve, reject) => {
-
             resolve(nextPassport);
         });
     }
