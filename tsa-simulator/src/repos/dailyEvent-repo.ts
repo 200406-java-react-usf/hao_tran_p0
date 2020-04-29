@@ -1,5 +1,6 @@
 import { CrudRepository } from "./crud-repo";
 import { DailyEvent } from "../models/dailyEvent";
+import { Group } from "../models/groups";
 const db = require('ts-postgres');
 
 export class DailyEventRepository implements CrudRepository<DailyEvent> {
@@ -8,7 +9,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: Number): Promise<DailyEvent> {
+    getById(id: number): Promise<DailyEvent> {
         return new Promise<DailyEvent>((resolve, reject) => {
             
             if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
@@ -28,15 +29,15 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             });
         })
     }
-    getUnselected(): Promise<[Number]> {
-        return new Promise<[Number]>((resolve, reject) => {
+    getUnselected(): Promise<[number]> {
+        return new Promise<[number]>((resolve, reject) => {
             let query: String = "SELECT selected FROM dailyEvents WHERE selected = false";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
                 }
                 //return an arr of id
-                let arr:[Number];
+                let arr:[number];
                 results.forEach(element => {
                     arr.push(element.id);
                 });
@@ -44,7 +45,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             });
         });
     }
-    updateSelected(id: Number): Promise<DailyEvent[]> {
+    updateSelected(id: number): Promise<DailyEvent[]> {
         return new Promise<DailyEvent[]>((resolve, reject) => {
             let query: String = "UPDATE dailyEvents SET selected = true WHERE id= $id;";
             db.query(query, (error, results) => {
@@ -54,6 +55,25 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
                 resolve(results);
             });
         });
+    }
+    getGroupById(id: number): Promise<[number]> {
+        return new Promise<[number]>((resolve, reject) => {
+            if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
+                reject("BadRequestError");
+                return;
+            }
+            let query: String = "SELECT id FROM groups WHERE id = $id";
+            db.query(query, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                if (!results) {
+                    reject("new ResourceNotFoundError()");
+                    return;
+                }
+                resolve(results);
+            });
+        })
     }
     save(newEvent: DailyEvent): Promise<DailyEvent> {
         return new Promise<DailyEvent>((resolve, reject) => {

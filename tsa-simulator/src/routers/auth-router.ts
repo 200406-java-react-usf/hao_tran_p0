@@ -9,10 +9,10 @@ const userService = AppConfig.userService;
 AuthRouter.post('', async (req, res) => {
     try {
         const { username, password } = req.body;
-        let authUser = await userService.authUser(username, password);
+        let authUser = await userService.authenticateUser(username, password);
         let payload = new Principal(authUser.id, authUser.username, authUser.role);
         req.session.principal = payload;
-        res.redirect("../:username");   
+        res.redirect("/:username");   
     } catch (e) {
         res.status(e.statusCode || 500).json(e);
     }

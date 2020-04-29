@@ -11,8 +11,8 @@ export class UserRepository implements CrudRepository<User> {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: number): Promise<Passport> {
-        return new Promise<Passport>((resolve, reject) => {
+    getById(id: number): Promise<User> {
+        return new Promise<User>((resolve, reject) => {
                 reject("new NotImplementedError()");
             });
     }

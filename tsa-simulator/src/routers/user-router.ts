@@ -2,7 +2,7 @@
 import url from 'url';
 import express from 'express';
 import AppConfig from '../config/app';
-import { isEmptyObject } from '../util/validator';
+// import { isEmptyObject } from '../util/validator';
 import { ParsedUrlQuery } from 'querystring';
 import { admin } from '../middleware/auth-middleware';
 
@@ -10,10 +10,10 @@ export const UserRouter = express.Router();
 
 const userService = AppConfig.userService;
 
-UserRouter.get('/:id', async (req, resp) => {
-    const id = +req.params.id;
+UserRouter.get('/:username', async (req, resp) => {
+    const username = req.body.username;
     try {
-        let payload = await userService.getUserById(id);
+        let payload = await userService.getByUsername(username);
         return resp.status(200).json(payload);
     } catch (e) {
         return resp.status(e.statusCode).json(e).send();

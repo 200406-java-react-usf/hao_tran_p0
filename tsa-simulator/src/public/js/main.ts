@@ -1,45 +1,54 @@
+import express from 'express';
+import { Principal } from '../dtos/principal';
+const app = express();
+import { UserRouter } from './routers/user-router';
+import { AuthRouter } from "../../routers/auth-router";
+import { PassportRouter } from './routers/passort-router';
+import { EventRouter } from './routers/event-router';
 
+app.use('/auth', AuthRouter);
 window.onload = function () {
-
+    const timeout = function (ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms)
+        )
+    }
     function main() {
+            
+    };
+    function game(){
+        // load daily event
+        // load exclusion grp
+        // load passport
+    }
+    function showProfile() {
+        new Promise(async (resolve, reject) => {
+            await timeout(1000);
 
+            document.getElementById("cube1").classList.add("inactive");
+            await timeout(500);
+
+            document.getElementById("cube1").classList.add("hide");
+            document.getElementById("loginHolder").classList.add("hide");
+            document.getElementById("cube2").classList.remove("hide");
+            document.getElementById("profileHolder").classList.remove("hide");
+            await timeout(500);
+
+            document.getElementById("cube2").classList.remove("inactive");
+            await timeout(500);
+
+            main()
+        });
     };
     function submit() {
-        console.log((document.getElementById("usernameLogin"))["value"]);
         let user = {
-            username: (document.getElementById("usernameLogin"))["value"],
-            password: (document.getElementById("passwordLogin"))["value"],
+            username: String(document.getElementById("usernameLogin"))["value"],
+            password: String(document.getElementById("passwordLogin"))["value"],
         };
-        let currentURL = window.location.origin;
-        app.post(currentURL + "/auth", user, function (results) {
-            if (res.body.result == true) {
-                start();
-            } else {
-                alert("wrong password");
-            }
-        });
-    }
-    function start() {
-        console.log(user);
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                document.getElementById("cube1").classList.add("inactive");
-            }, 1000)
-        }
-        ).then(
-            setTimeout(() => {
-                document.getElementById("cube1").classList.add("hide");
-                document.getElementById("loginHolder").classList.add("hide");
-                document.getElementById("cube2").classList.remove("hide");
-                document.getElementById("profileHolder").classList.remove("hide");
-            }, 1500)
-        ).then(
-            setTimeout(() => {
-                document.getElementById("cube2").classList.remove("inactive");
-            }, 2000)
-        ).then(
-            main()
-        )
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/auth", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({user}));
+        showProfile();
     }
     //show sign up || register
     function listeners() {
@@ -75,7 +84,6 @@ window.onload = function () {
                 document.getElementById("box1").classList.remove("boxclicked");
                 document.getElementById("box1").setAttribute("clicked", "false");
             }
-
         };
 
         document.getElementById("cube2").onclick = function (event) {
@@ -86,21 +94,19 @@ window.onload = function () {
                 document.getElementById("box1").classList.remove("boxclicked");
                 document.getElementById("box1").setAttribute("clicked", "false");
             }
-
         };
         // login
         document.getElementById("loginSubmitBtn").onclick = function (event) {
             console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
-            submit();
+            submit()
         };
         // register
         document.getElementById("registerSubmitBtn").onclick = function (event) {
             console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
-            submit();
         };
     }
     listeners()

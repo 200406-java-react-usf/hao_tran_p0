@@ -8,7 +8,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: Number): Promise<Passport> {
+    getById(id: number): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
             
             if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
@@ -28,15 +28,15 @@ export class PassportRepository implements CrudRepository<Passport> {
             });
         })
     }
-    getUnselected(): Promise<[Number]> {
-        return new Promise<[Number]>((resolve, reject) => {
+    getUnselected(): Promise<[number]> {
+        return new Promise<[number]>((resolve, reject) => {
             let query: String = "SELECT selected FROM passports WHERE selected = false";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
                 }
                 //return an arr of id
-                let arr:[Number];
+                let arr:[number];
                 results.forEach(element => {
                     arr.push(element.id);
                 });
@@ -44,7 +44,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             });
         });
     }
-    updateSelected(id: Number): Promise<Passport[]> {
+    updateSelected(id: number): Promise<Passport[]> {
         return new Promise<Passport[]>((resolve, reject) => {
             let query: String = "UPDATE passports SET selected = true WHERE id= $id;";
             db.query(query, (error, results) => {

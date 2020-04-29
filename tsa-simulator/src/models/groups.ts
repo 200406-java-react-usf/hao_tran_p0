@@ -2,9 +2,9 @@ export class Group {
     
     id: number;
     groupName: string;
-    memberId: [Number];
+    memberId: [number];
 
-    constructor (id: number, groupName: string, memberId: [Number]) {
+    constructor (id: number, groupName: string, memberId: [number]) {
         this.id = id;
         this.groupName = groupName;
         this.memberId = memberId;
