@@ -1,6 +1,6 @@
 import { User } from "../models/user";
 import { UserRepository } from "../repos/user-repo";
-import { isValidId, isValidStrings, isValidObject, isPropertyOf, isEmptyObject } from "../util/validator";
+// import { isValidId, isValidStrings, isValidObject, isPropertyOf, isEmptyObject } from "../util/validator";
 import { 
     BadRequestError, 
     ResourceNotFoundError, 
@@ -21,28 +21,28 @@ export class UserService {
                 return;
             }
             let user = {...await this.userRepo.getByUsername(username)};
-            if (isEmptyObject(user)) {
-                return reject(new ResourceNotFoundError());
-            }
+            // if (isEmptyObject(user)) {
+            //     return reject(new ResourceNotFoundError());
+            // }
             resolve(user);
         });
     }
     authenticateUser(un: string, pw: string): Promise<User> {
         return new Promise<User>(async (resolve, reject) => {
-            if (!isValidStrings(un, pw)) {
-                reject(new BadRequestError());
-                return;
-            }
+            // if (!isValidStrings(un, pw)) {
+            //     reject(new BadRequestError());
+            //     return;
+            // }
             let authUser: User;
             try {
                 authUser = await this.userRepo.checkCredentials(un, pw);
             } catch (e) {
                 reject(e);
             }
-            if (isEmptyObject(authUser)) {
-                reject(new AuthenticationError('Bad credentials provided.'));
-                return;
-            }
+            // if (isEmptyObject(authUser)) {
+            //     reject(new AuthenticationError('Bad credentials provided.'));
+            //     return;
+            // }
             resolve(this.removePassword(authUser));
 
         });

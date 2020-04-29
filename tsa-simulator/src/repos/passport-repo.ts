@@ -1,29 +1,59 @@
 
 import { CrudRepository } from "./crud-repo";
-// import Passport from "../../data/model/passport";
-
+import { Passport } from "../models/passport";
+const db = require('ts-postgres');
 export class PassportRepository implements CrudRepository<Passport> {
     getAll(): Promise<Passport[]> {
-        return new Promise<Passport>((resolve, reject) => {
+        return new Promise<Passport[]>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
     }
-    getById(id: number): Promise<Passport> {
+    getById(id: Number): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
             
             if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
                 reject("BadRequestError");
                 return;
             }
-            const passport: Passport = { 
-                ...data.filter(passport => passport.id === id).pop() 
-            };
-            if (!passport) {
-                reject("new ResourceNotFoundError()");
-                return;
-            }
-            resolve(passport);
+            let query: String = "SELECT id FROM users WHERE id = $id";
+            db.query(query, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                if (!results) {
+                    reject("new ResourceNotFoundError()");
+                    return;
+                }
+                resolve(results);
+            });
         })
+    }
+    getUnselected(): Promise<[Number]> {
+        return new Promise<[Number]>((resolve, reject) => {
+            let query: String = "SELECT selected FROM passports WHERE selected = false";
+            db.query(query, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                //return an arr of id
+                let arr:[Number];
+                results.forEach(element => {
+                    arr.push(element.id);
+                });
+                resolve(arr);
+            });
+        });
+    }
+    updateSelected(id: Number): Promise<Passport[]> {
+        return new Promise<Passport[]>((resolve, reject) => {
+            let query: String = "UPDATE passports SET selected = true WHERE id= $id;";
+            db.query(query, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results);
+            });
+        });
     }
     save(newPassport: Passport): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
@@ -40,22 +70,6 @@ export class PassportRepository implements CrudRepository<Passport> {
     deleteById(id: number): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             reject("NotImplementedError()");
-        });
-    }
-
-    getPassportsByPassporterId(pid: number): Promise<Passport[]> {
-        return new Promise<Passport[]>((resolve, reject) => {
-
-            if (typeof pid !== 'number' || !Number.isInteger(pid) || pid <= 0) {
-                reject("new BadRequestError()");
-                return;
-            }
-
-            setTimeout(function () {
-                const passports = data.filter(passport => passport.passporterId == pid);
-                resolve(passports);
-            }, 250);
-
         });
     }
 }

@@ -3,11 +3,18 @@ import { CrudRepository } from "./crud-repo";
 import { User } from "../models/user";
 const pg = require('pg');
 
+
+
 export class UserRepository implements CrudRepository<User> {
-    getAll(req: any, res: any): Promise<User> {
-        return new Promise<User>((resolve, reject) => {
+    getAll(): Promise<User[]> {
+        return new Promise<User[]>((resolve, reject) => {
             reject("new NotImplementedError()");
         });
+    }
+    getById(id: number): Promise<Passport> {
+        return new Promise<Passport>((resolve, reject) => {
+                reject("new NotImplementedError()");
+            });
     }
     getByUsername(username: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {

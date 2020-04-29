@@ -3,7 +3,7 @@ import express from 'express';
 import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
-import pg from 'pg';
+import { native as pg } from 'pg'
 
 // Express App
 const app = express();
@@ -29,6 +29,15 @@ app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//connect db
+
+import { Client } from 'ts-postgres';
+async function main() {
+  const db = new Client();
+  await db.connect();
+}
+
+main()
 
 //to routing page
 require("./route/htmlRoutes.ts")(app);
