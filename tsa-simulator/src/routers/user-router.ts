@@ -20,15 +20,12 @@ UserRouter.get('/:username', async (req, res) => {
     }
 });
 
-UserRouter.post('', async (req, resp) => {
-
-    console.log('POST REQUEST RECEIVED AT /users');
+UserRouter.post('/register', async (req, res) => {
     console.log(req.body);
     try {
         let newUser = await userService.addNewUser(req.body);
-        return resp.status(201).json(newUser).send();
+        res.redirect("/:username");   
     } catch (e) {
-        return resp.status(e.statusCode).json(e).send();
+        return res.status(e.statusCode).json(e).send();
     }
-
 });

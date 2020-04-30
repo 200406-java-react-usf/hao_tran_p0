@@ -17,6 +17,7 @@ window.onload = function () {
     };
     function game(){
         // load daily event
+        
         // load exclusion grp
         // load passport
     }
@@ -34,21 +35,9 @@ window.onload = function () {
             await timeout(500);
 
             document.getElementById("cube2").classList.remove("inactive");
-            await timeout(500);
-
-            res.render('index', {weather: weatherText, error: null});
+            await timeout(500); 
         });
     };
-    function submit() {
-        let user = {
-            username: String(document.getElementById("usernameLogin"))["value"],
-            password: String(document.getElementById("passwordLogin"))["value"],
-        };
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/auth", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({user}));
-    }
     //show sign up || register
     function listeners() {
         document.getElementById("signUpBtn").onclick = function (event) {
@@ -96,16 +85,18 @@ window.onload = function () {
         };
         // login
         document.getElementById("loginSubmitBtn").onclick = function (event) {
-            console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
-            submit()
+            showProfile()
         };
         // register
         document.getElementById("registerSubmitBtn").onclick = function (event) {
-            console.log("clicked");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
+            showProfile()
+        };
+        document.getElementById("start").onclick = function (event) {
+            game()
         };
     }
     listeners()

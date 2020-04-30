@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div id=register class=hide>
-                    <form>
+                    <form action="user/register" method="POST">
                         <p>REGISTER</p>
                         <div class="form-group" id=loginInfo>
                             <div class=inputContainer>USERNAME</div>
@@ -68,15 +68,34 @@
                 <div class="cube_bottom"></div>
             </div>
         </div>
+        <!-- Profile -->
         <div id="cube2" class="cube inactive hide">
             <div class="cube_inner">
                 <div class="cube_front"></div>
                 <div class="page_left"></div>
                 <div class="page_right">
                     <div id="profileHolder" class="profileHolder">
+                        <%= include "../partial/profile.ejs") %>
+                    </div>
+                </div>
+                <div class="cube_back"></div>
+                <div class="cube_left"></div>
+                <div class="cube_right"></div>
+                <div class="cube_top"></div>
+                <div class="cube_bottom"></div>
+            </div>
+        </div>
+        <!-- Game -->
+        <div id="cube3" class="cube inactive hide">
+            <div class="cube_inner">
+                <div class="cube_front"></div>
+                <div class="page_left"></div>
+                <div class="page_right">
+                    <div id="eventHolder" class="eventHolder">
                         <% if(profile !== null){ %>
-                            <div><%= profile.username %></div>
-                            <div><%= profile.score %></div>
+                        <div><%= profile.username %></div>
+                        <div><%= profile.score %></div>
+                        <div id=start>START</div>
                         <% } %>
                     </div>
                 </div>

@@ -19,23 +19,23 @@ export class DailyEventService {
     getNextEvent(): Promise<DailyEvent> {
         return new Promise<DailyEvent>(async (resolve, reject) => {
 
-            let userlist:[Number] = {...await this.dailyEventuserRepo.getUnselected()};
-            let nextPassportId:Number = userlist[Math.floor(Math.random() * userlist.length)];
-            let nextPassport: DailyEvent = {...await this.dailyEventuserRepo.getById(nextPassportId)};
+            let userlist:[number] = {...await this.dailyEventuserRepo.getUnselected()};
+            let nextEventId:number = userlist[Math.floor(Math.random() * userlist.length)];
+            let nextPassport: DailyEvent = {...await this.dailyEventuserRepo.getById(nextEventId)};
 
             resolve(nextPassport);
         });
     }
-    getExclusionGroup(id:Number): Promise<[Number]> {
-        return new Promise<[Number]>(async (resolve, reject) => {
-            let group:[Number] = {...await this.dailyEventuserRepo.getGroupById(id)};
+    getExclusionGroup(id:number): Promise<[number]> {
+        return new Promise<[number]>(async (resolve, reject) => {
+            let group:[number] = {...await this.dailyEventuserRepo.getGroupById(id)};
 
             resolve(group);
         });
     }
-    checkIfInGroup(passport:Passport, id:Number): Promise<Boolean>{
+    checkIfInGroup(passport:Passport, id:number): Promise<Boolean>{
         return new Promise<Boolean>(async (resolve, reject) => {
-            let idList:[Number] = {...await this.getExclusionGroup(id)};
+            let idList:[number] = {...await this.getExclusionGroup(id)};
             let result:Boolean=idList.includes(passport.id);
             resolve(result);
         });

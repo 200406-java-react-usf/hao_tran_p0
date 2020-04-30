@@ -1,18 +1,15 @@
 import express from 'express';
 import AppConfig from "../config/app";
-import { Principal } from '../dtos/principal';
 
-export const AuthRouter = express.Router();
 
-const userService = AppConfig.userService;
+export const EventRouter = express.Router();
 
-AuthRouter.post('', async (req, res) => {
+const eventService = AppConfig.eventService;
+
+EventRouter.get('', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        let authUser = await userService.authUser(username, password);
-        let payload = new Principal(authUser.id, authUser.username, authUser.role);
-        req.session.principal = payload;
-        res.redirect("/:username");   
+        let nextevent = await eventService.getNextEvent();
+        res.render('index', {profile: nextevent, error: null});
     } catch (e) {
         res.status(e.statusCode || 500).json(e);
     }
