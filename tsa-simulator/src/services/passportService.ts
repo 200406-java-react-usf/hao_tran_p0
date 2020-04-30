@@ -17,8 +17,8 @@ export class PassportService {
     getNextPassport(): Promise<Passport> {
         return new Promise<Passport>(async (resolve, reject) => {
 
-            let userlist:[Number] = {...await this.passportRepo.getUnselected()};
-            let nextPassportId:Number = userlist[Math.floor(Math.random() * userlist.length)];
+            let userlist:[number] = {...await this.passportRepo.getUnselected()};
+            let nextPassportId:number = userlist[Math.floor(Math.random() * userlist.length)];
             let nextPassport: Passport = {...await this.passportRepo.getById(nextPassportId)};
             // if (isEmptyObject(user)) {
             //     return reject(new ResourceNotFoundError());

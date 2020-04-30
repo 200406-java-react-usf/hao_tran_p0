@@ -1,12 +1,3 @@
-import express from 'express';
-import { Principal } from '../dtos/principal';
-const app = express();
-import { UserRouter } from './routers/user-router';
-import { AuthRouter } from "../../routers/auth-router";
-import { PassportRouter } from './routers/passort-router';
-import { EventRouter } from './routers/event-router';
-
-app.use('/auth', AuthRouter);
 window.onload = function () {
     const timeout = function (ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms)

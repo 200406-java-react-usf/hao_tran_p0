@@ -7,10 +7,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="../../build/public/js/main.js"></script>
 
 </head>
-<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<link rel="stylesheet" type="text/css" href="../styles/style.css">
 
 <body>
     <div id="box1" class="box" clicked="false">
@@ -89,13 +89,22 @@
         <div id="cube3" class="cube inactive hide">
             <div class="cube_inner">
                 <div class="cube_front"></div>
-                <div class="page_left"></div>
-                <div class="page_right">
+                <div class="page_left">
                     <div id="eventHolder" class="eventHolder">
-                        <% if(profile !== null){ %>
-                        <div><%= profile.username %></div>
-                        <div><%= profile.score %></div>
-                        <div id=start>START</div>
+                        <% if(nextEvent !== null){ %>
+                        <div><%= nextEvent.title %></div>
+                        <div><%= nextEvent.content %></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="page_right">
+                    <div id="PassportHolder" class="PassportHolder">
+                        <% if(nextPassport !== null){ %>
+                        <div><%= nextEvent.firstName %></div>
+                        <div><%= nextEvent.lastName %></div>
+                        <div><%= nextEvent.nationality %></div>
+                        <div id=start>APPORVE</div>
+                        <div id=start>DENY</div>
                         <% } %>
                     </div>
                 </div>
