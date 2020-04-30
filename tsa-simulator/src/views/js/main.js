@@ -1,5 +1,5 @@
 window.onload = function () {
-    const timeout = function (ms: number) {
+    const timeout = function (ms) {
         return new Promise(resolve => setTimeout(resolve, ms)
         )
     }
