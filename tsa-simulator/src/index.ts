@@ -1,9 +1,7 @@
 // Dependencies
 import express from 'express';
-import fs from 'fs';
-import morgan from 'morgan';
 import path from 'path';
-import { native as pg } from 'pg'
+
 
 // Express App
 const app = express();
@@ -19,7 +17,7 @@ import { corsFilter } from './middleware/cors-filter';
 
 app.use('/users', UserRouter);
 app.use('/passports', PassportRouter);
-app.use('/events', PassportRouter);
+app.use('/events', EventRouter);
 app.use('/auth', AuthRouter);
 
 // Sets up the Express app to handle data parsing
@@ -40,11 +38,14 @@ async function main() {
 main()
 
 //to routing page
-require("./route/htmlRoutes.ts")(app);
+app.get('/', function(req, res) {
+	res.render('pages/index');
+});
 
 //server setup
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
 });
+
 
 
