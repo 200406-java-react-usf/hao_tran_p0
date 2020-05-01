@@ -3,8 +3,6 @@ import { CrudRepository } from "./crud-repo";
 import { User } from "../models/user";
 const pg = require('pg');
 
-
-
 export class UserRepository implements CrudRepository<User> {
     getAll(): Promise<User[]> {
         return new Promise<User[]>((resolve, reject) => {
