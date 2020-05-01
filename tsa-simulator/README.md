@@ -1,6 +1,9 @@
 
 # Project 0
 
+#ERD
+![Image of ERD](https://raw.githubusercontent.com/200406-java-react-usf/hao_tran_p0/master/tsa-simulator/ERD/ERD.jpeg)
+
 For Project 0, you will be building a RESTful API using TypeScript and Express. Associates are allowed to come up with their own API idea, but it must be approved by the trainer; suggested ideas are provided below.
 
 Suggestions: 
