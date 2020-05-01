@@ -41,17 +41,17 @@ export class PassportRepository implements CrudRepository<Passport> {
             });
         })
     }
-    getUnselected(): Promise<number[]> {
-        return new Promise<number[]>((resolve, reject) => {
+    getUnselected(): Promise<Passport[]> {
+        return new Promise<Passport[]>((resolve, reject) => {
             let query: String = "SELECT selected FROM passports WHERE selected = false";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
                 }
                 //return an arr of id
-                let arr:number[];
+                let arr:Passport[];
                 results.forEach(element => {
-                    arr.push(element.id);
+                    arr.push(element);
                 });
                 resolve(arr);
             });

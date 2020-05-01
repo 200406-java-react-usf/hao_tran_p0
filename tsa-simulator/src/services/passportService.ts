@@ -20,17 +20,17 @@ export class PassportService {
     }
     getNextPassport(): Promise<Passport> {
         return new Promise<Passport>(async (resolve, reject) => {
-            let userlist: number[] = { ...await this.passportRepo.getUnselected() };
+            let userlist: Passport[] = { ...await this.passportRepo.getUnselected() };
             if (isEmptyObject(userlist)) {
                 return reject(new ResourceNotFoundError());
             }
-            let nextPassportId: number = userlist[Math.floor(Math.random() * userlist.length)];
-            let nextPassport: Passport = { ...await this.passportRepo.getById(nextPassportId) };
+            let nextPassportId: Passport = userlist[Math.floor(Math.random() * userlist.length)];
+            let nextPassport: Passport = { ...await this.passportRepo.getById(nextPassportId.id) };
             if (isEmptyObject(nextPassport)) {
                 return reject(new ResourceNotFoundError());
             }
             //mark the passport as selected
-            await this.passportRepo.updateSelected(nextPassportId);
+            await this.passportRepo.updateSelected(nextPassportId.id);
             if (isEmptyObject(nextPassport)) {
                 return reject(new ResourceNotFoundError());
             }
