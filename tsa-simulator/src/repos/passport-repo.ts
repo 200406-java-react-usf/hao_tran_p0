@@ -1,6 +1,18 @@
 
 import { CrudRepository } from "./crud-repo";
 import { Passport } from "../models/passport";
+import {
+    BadRequestError,
+    ResourceNotFoundError,
+    NotImplementedError,
+    ResourcePersistenceError,
+    AuthenticationError
+} from "../errors/errors";
+import {
+    ValidId,
+    isEmptyObject,
+    shuffle
+} from "../util/tools"
 const db = require('ts-postgres');
 
 
@@ -24,9 +36,8 @@ export class PassportRepository implements CrudRepository<Passport> {
     getById(id: number): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
             
-            if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
-                reject("BadRequestError");
-                return;
+            if (!ValidId(id)) {
+                return reject(new BadRequestError());
             }
             let query: String = "SELECT id FROM passports WHERE id = $id";
             db.query(query, (error, results) => {
@@ -34,8 +45,7 @@ export class PassportRepository implements CrudRepository<Passport> {
                     reject(error);
                 }
                 if (!results) {
-                    reject("new ResourceNotFoundError()");
-                    return;
+                    return reject(new ResourceNotFoundError());
                 }
                 resolve(results);
             });
@@ -68,14 +78,14 @@ export class PassportRepository implements CrudRepository<Passport> {
             });
         });
     }
-    resetPassport(): Promise<boolean> {
+    resetPassport(): Promise<void> {
         return new Promise((resolve, reject) => {
             let query: String = "UPDATE passports SET selected = false WHERE selected = true";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
                 }
-                resolve(true);
+                resolve();
             });
         });
     }

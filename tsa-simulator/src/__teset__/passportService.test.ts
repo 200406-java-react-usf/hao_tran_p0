@@ -1,9 +1,13 @@
 import { PassportService } from '../services/passportService';
 import { PassportRepository } from '../repos/passport-repo';
 import { Passport } from '../models/passport';
-import tool from '../util/tools';
+import tools from '../util/tools';
 import { ResourceNotFoundError, BadRequestError } from '../errors/errors';
 
+//connect to passport db
+
+
+//
 describe('userService', () => {
 
     let sut: PassportService;
@@ -33,18 +37,7 @@ describe('userService', () => {
         }
     });
 
-    test('repo/getUnselected: should retrieves all unselected users from the data source', async () => {
-        // Arrange
-        expect.hasAssertions();
-        PassportRepository.prototype.getUnselected = jest.fn().mockReturnValue(mockUsers);
-        // Act
-        let result: Passport[] = { ...await this.passportRepo.getUnselected() };
-        // Assert
-        expect(result).toBeTruthy();
-        result.forEach(element => {
-            expect(element.selected).toBeFalsy();
-        });
-    });
+    //service testing
     test('service/getNextPassport:should retrieves random users from the data source', async () => {
 
         // Arrange

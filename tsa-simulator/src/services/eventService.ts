@@ -20,12 +20,12 @@ export class DailyEventService {
     }
     getUselectedEventList(): Promise<number[]> {
         return new Promise<number[]>(async (resolve, reject) => {
-            let userlist:number[] = {...await this.dailyEventuserRepo.getUnselected()};
-            if (isEmptyObject(userlist)){
+            let eventlist:number[] = await this.dailyEventuserRepo.getUnselected();
+            if (isEmptyObject(eventlist)){
                 reject(new ResourceNotFoundError);
             }
-            userlist = shuffle(userlist);
-            resolve(userlist);         
+            eventlist = shuffle(eventlist);
+            resolve(eventlist);         
         });
     }
     getNextEvent(id:number): Promise<DailyEvent> {
