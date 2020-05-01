@@ -33,7 +33,7 @@ export function isEmptyObject<T>(obj: T) {
     return obj && Object.keys(obj).length === 0;
 }
 
-export function shuffle(array:[number]) {
+export function shuffle(array:number[]) {
     let i = array.length;
     let temp;
     let randomIndex;

@@ -2,6 +2,7 @@ import { DailyEventRepository } from "../repos/dailyEvent-repo";
 import { 
     BadRequestError, 
     ResourceNotFoundError, 
+    ResourcePersistenceError
 } from "../errors/errors";
 import { DailyEvent } from "../models/dailyEvent";
 import { Passport } from "../models/passport";
@@ -17,9 +18,9 @@ export class DailyEventService {
     constructor(private dailyEventuserRepo: DailyEventRepository) {
         this.dailyEventuserRepo = dailyEventuserRepo;
     }
-    getUselectedEventList(): Promise<[number]> {
-        return new Promise<[number]>(async (resolve, reject) => {
-            let userlist:[number] = {...await this.dailyEventuserRepo.getUnselected()};
+    getUselectedEventList(): Promise<number[]> {
+        return new Promise<number[]>(async (resolve, reject) => {
+            let userlist:number[] = {...await this.dailyEventuserRepo.getUnselected()};
             if (isEmptyObject(userlist)){
                 reject(new ResourceNotFoundError);
             }
@@ -40,12 +41,12 @@ export class DailyEventService {
             }
         });
     }
-    getExclusionGroup(id:number): Promise<[number]> {
-        return new Promise<[number]>(async (resolve, reject) => {
+    getExclusionGroup(id:number): Promise<number[]> {
+        return new Promise<number[]>(async (resolve, reject) => {
             if (!ValidId(id)){
                 return reject(new BadRequestError);
             }
-            let group:[number] = {...await this.dailyEventuserRepo.getGroupById(id)};
+            let group:number[] = {...await this.dailyEventuserRepo.getGroupById(id)};
             resolve(group);
         });
     }
@@ -54,12 +55,22 @@ export class DailyEventService {
             if (isEmptyObject(passport)||!ValidId(id)){
                 return reject(new BadRequestError);
             }
-            let idList:[number] = {...await this.getExclusionGroup(id)};
+            let idList:number[] = {...await this.getExclusionGroup(id)};
             if (isEmptyObject(idList)){
                 return reject(new BadRequestError);
             }
             let result:Boolean=idList.includes(passport.id);
             resolve(result);
+        });
+    }
+    resetEventList(): Promise<boolean> {
+        return new Promise<boolean>(async (resolve, reject) => {
+            let taskCheck = await this.dailyEventuserRepo.resetEvent();
+            if (taskCheck) {
+                resolve(true);
+            } else {
+                return reject(new ResourcePersistenceError())
+            }        
         });
     }
 }

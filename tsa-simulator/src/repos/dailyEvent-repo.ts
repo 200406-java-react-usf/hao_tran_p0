@@ -47,7 +47,18 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
     }
     updateSelected(id: number): Promise<DailyEvent[]> {
         return new Promise<DailyEvent[]>((resolve, reject) => {
-            let query: String = "UPDATE dailyEvents SET selected = true WHERE id= $id;";
+            let query: String = "UPDATE dailyEvents SET selected = true WHERE id= $id";
+            db.query(query, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results);
+            });
+        });
+    }
+    resetEvent(): Promise<DailyEvent[]> {
+        return new Promise<DailyEvent[]>((resolve, reject) => {
+            let query: String = "UPDATE dailyEvents SET selected = false WHERE selected = true";
             db.query(query, (error, results) => {
                 if (error) {
                     reject(error);
