@@ -67,9 +67,9 @@ export class UserService {
 
     }
     private removePassword(user: User): User {
-        if(!user || !user.password) return user;
+        if(!user || !user.userpassword) return user;
         let usr = {...user};
-        delete usr.password;
+        delete usr.userpassword;
         return usr;   
     }
 

@@ -2,17 +2,17 @@ export class User {
 
     id: number;
     username: string;
-    password: string;
+    userpassword: string;
     score: number;
-    role: string;
+    userrole: string;
 
 
-    constructor(id: number, username: string, password: string, score: number, role: string) {
+    constructor(id: number, username: string, userpassword: string, score: number, userrole: string) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.userpassword = userpassword;
         this.score = score;
-        this.role = role;
+        this.userrole = userrole;
     }
 
 }

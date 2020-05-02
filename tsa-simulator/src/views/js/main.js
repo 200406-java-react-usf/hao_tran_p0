@@ -76,6 +76,7 @@ window.onload = function () {
         };
         // login
         document.getElementById("loginSubmitBtn").onclick = function (event) {
+            console.log("submit button");
             document.getElementById("box1").classList.remove("boxclicked");
             document.getElementById("box1").setAttribute("clicked", "false");
             showProfile()

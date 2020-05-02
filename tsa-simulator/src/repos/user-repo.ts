@@ -1,66 +1,90 @@
 
 import { CrudRepository } from "./crud-repo";
 import { User } from "../models/user";
-const pg = require('pg');
+import { PoolClient } from 'pg';
+import { connectionPool } from '..';
+import { mapUserResult } from "../util/result-mapper"
+import {
+    BadRequestError,
+    ResourceNotFoundError,
+    InternalServerError,
+    NotImplementedError,
+    ResourcePersistenceError,
+    AuthenticationError
+} from "../errors/errors";
+import {
+    ValidId,
+    isStrings,
+    isEmptyObject,
+    shuffle
+} from "../util/tools"
 
 export class UserRepository implements CrudRepository<User> {
-    getAll(): Promise<User[]> {
-        return new Promise<User[]>((resolve, reject) => {
-            reject("new NotImplementedError()");
-        });
+    baseQuery = `select id, username, score from users`;
+    async getAll(): Promise<User[]> {
+        let client: PoolClient;
+        try {
+            client = await connectionPool.connect();
+            let sql = `${this.baseQuery}`;
+            let rs = await client.query(sql);
+            return  rs.rows.map(mapUserResult);
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
+    
     }
     getById(id: number): Promise<User> {
         return new Promise<User>((resolve, reject) => {
                 reject("new NotImplementedError()");
             });
     }
-    getByUsername(username: string): Promise<User> {
-        return new Promise<User>((resolve, reject) => {
-            let query: String = "SELECT username FROM users WHERE username = $username";
-            let value: String = username;
-            if (typeof username !== 'string') {
-                reject("BadRequestError");
-                return;
-            }
-            pg.query(query, value, (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                resolve(results);
-            });
-        });
+    async getByUsername(username: string): Promise<User> {
+        if(!isStrings(name)){
+            throw new BadRequestError();
+        }
+        let client: PoolClient;
+        try {
+            client = await connectionPool.connect();
+            let sql = `${this.baseQuery} where username = $1`;
+            let rs = await client.query(sql, [username]);
+            return mapUserResult(rs.rows[0]);
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
     }
-    save(newUser: any): Promise<User> {
-        return new Promise<User>((resolve, reject) => {
-            let query: String = "INSERT INTO users VALUES newUser";
-            pg.query(query, newUser, (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                resolve(results);
-            });
-
-        });
+    async save(newUser:User): Promise<User> {
+        let client: PoolClient;
+        try {
+            client = await connectionPool.connect();
+            let sql = `insert into app_users (username, userpassword, score, userrole) 
+            values ($1, $2, $3, $4) returning id`;
+            let rs = await client.query(sql, [newUser.username, newUser.userpassword, 0, "tester"]);
+            return newUser;
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
     }
-    checkCredentials(username: string, password: string) {
-        return new Promise<User>((resolve, reject) => {
-            let query: String = "SELECT username FROM users WHERE username = $username";
-            let value: String = username;
-            if (typeof username !== 'string') {
-                reject("BadRequestError");
-                return;
-            }
-            pg.query(query, value, (error, results) => {
-                if (error) {
-                    reject(error);
-                }else if(results.username === username && results.password === password){
-                    reject(error);
-                }
-                resolve(results);
-            });
+    async checkCredentials(username: string, password: string) {
+        
+        let client: PoolClient;
 
-        });
-
+        try {
+            client = await connectionPool.connect();
+            let sql = `${this.baseQuery} where username = $1 and userpassword = $2`;
+            let rs = await client.query(sql, [username, password]);
+            return mapUserResult(rs.rows[0]);
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
+    
     }
 
     update(updatedUser: User): Promise<boolean> {

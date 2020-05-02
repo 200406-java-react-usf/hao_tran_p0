@@ -10,7 +10,7 @@ AuthRouter.post('', async (req, res) => {
     try {
         const { username, password } = req.body;
         let authUser = await userService.authenticateUser(username, password);
-        let payload = new Principal(authUser.id, authUser.username, authUser.role);
+        let payload = new Principal(authUser.id, authUser.username, authUser.userrole);
         req.session.principal = payload;
         res.redirect("/:username");   
     } catch (e) {

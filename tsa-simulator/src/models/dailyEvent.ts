@@ -3,15 +3,15 @@ export class DailyEvent {
     id: number;
     title: string;
     content: string;
-    group: number;
+    groupId: number;
     selected: boolean;
 
-    constructor (id: number, title: string, content: string, group: number) {
+    constructor (id: number, title: string, content: string, groupId: number, selected:boolean) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.group = group;
-        this.selected = false;
+        this.groupId = groupId;
+        this.selected = selected;
     }
     
 }
