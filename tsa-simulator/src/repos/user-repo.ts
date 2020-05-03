@@ -90,13 +90,13 @@ export class UserRepository implements CrudRepository<User> {
 
     update(updatedUser: User): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            reject("new NotImplementedError()");
+            reject(new NotImplementedError());
         });
     }
 
     deleteById(id: number): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            reject("NotImplementedError()");
+            reject(new NotImplementedError());
         });
     }
 }

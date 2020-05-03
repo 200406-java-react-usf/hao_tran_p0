@@ -21,7 +21,7 @@ GameRouter.get('/all', async (req, res) => {
 GameRouter.get('/', async (req, res) => {
     try {
         console.log("game router called");
-        res.render('pages/profile/profile');
+        res.render('pages/game');
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }

@@ -5,8 +5,6 @@ window.onload = function () {
         )
     }
     async function start_ani() {
-        $("#box1").addClass("boxclicked");
-        await timeout(100);
         $("#cube").removeClass("hide");
         await timeout(100);
         $("#cube").removeClass("inactive");
@@ -60,6 +58,7 @@ window.onload = function () {
         }
     });
     $("#start").click(async function (event) {
+        console.log("click start");
         close_ani()
         await timeout(500);
         $("#book_conatianer").removeClass("book_open");

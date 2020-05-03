@@ -251,20 +251,9 @@ input{
     height: 100% !important;
     display: inline-block !important;
 }
-.start{
-    margin-top: 360px !important;
-    margin-left: 245px !important;
-    background-color: #583447;
-    color: white;
-    width: 100px !important;
-    height: 100px !important;
-    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
-}
-.unselected .form_holder .start{
-    opacity: 0;
-    display: block;
-    margin-top: 360px !important;
-    margin-left: 230px !important;
+.binary_selection{
+    margin-top: 10px !important;
+    margin-left: 10px !important;
     background-color: #583447;
     color: white;
     width: 100px !important;
@@ -276,4 +265,14 @@ input{
     margin: 20px;
     width: 260px !important;
     height: 375px !important;
+}
+
+.button_container{
+    margin-top: 300px;
+    z-index: 10;
+}
+
+.button_container div{
+    position: relative !important;
+    display: inline-block !important;
 }
