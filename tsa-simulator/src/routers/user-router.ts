@@ -10,11 +10,18 @@ export const UserRouter = express.Router();
 
 const userService = AppConfig.userService;
 
+UserRouter.get('/', async (req, res) => {
+    console.log("test");
+    res.send("user router");
+});
+
 UserRouter.get('/:username', async (req, res) => {
+
     const username = req.body.username;
+    console.log(username);
     try {
         let payload = await userService.getByUsername(username);
-        res.render('index', {profile: payload, error: null});
+        res.render('pages/profile/profile', { profile: payload, error: null });
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }
@@ -24,7 +31,7 @@ UserRouter.post('/register', async (req, res) => {
     console.log(req.body);
     try {
         let newUser = await userService.addNewUser(req.body);
-        res.redirect("/:username");   
+        res.redirect("/:username");
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }

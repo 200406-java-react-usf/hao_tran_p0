@@ -21,9 +21,11 @@ import {
 
 export class PassportRepository implements CrudRepository<Passport> {
     async getAll(): Promise<Passport[]> {
+        console.log("passport repo called");
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
+            console.log(client);
             let sql = "SELECT * FROM passports";
             let rs = await client.query(sql);
             return  rs.rows.map(mapPassportResult);

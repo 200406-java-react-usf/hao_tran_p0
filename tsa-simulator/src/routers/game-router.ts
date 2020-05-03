@@ -2,15 +2,17 @@ import express from 'express';
 import AppConfig from "../config/app";
 
 
-export const EventRouter = express.Router();
+export const GameRouter = express.Router();
 
 const eventService = AppConfig.eventService;
+const passportService = AppConfig.passportService;
 
-EventRouter.get('', async (req, res) => {
+
+GameRouter.get('/all', async (req, res) => {
     try {
-        let Eventid = req.body.Eventid;
-        let nextEvent = await eventService.getNextEvent(Eventid);
-        res.render('index', {nextEvent: nextEvent, error: null});
+        console.log("game router called");
+        let nextEvent = await passportService.getAll();
+        res.send(nextEvent);
     } catch (e) {
         res.status(e.statusCode || 500).json(e);
     }

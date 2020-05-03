@@ -23,21 +23,18 @@
             </div>
             <div class="big">
                 <div id=login class=show>
-                    <form action="/auth" method="POST">
+                    <form action="auth" method="POST">
                         <p>LOGIN</p>
                         <div class="form-group" id=loginInfo>
                             <div class=inputContainer>USERNAME</div>
-                            <input id="usernameLogin" type="text" class="form-control"
-                                placeholder="User Name (Required)">
-
+                            <input type="text" name="username" class="form-control" placeholder="Username" required>
                             <div class=inputContainer>PASSWORD</div>
-                            <input id="passwordLogin" type="text" class="form-control"
-                                placeholder="Password (Required)">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                            <div id="loginSubmitBtn" class="pink" type="submit">
+                                Submit
+                            </div>
                         </div>
                     </form>
-                    <div id="loginSubmitBtn" class="pink">
-                        Submit
-                    </div>
                 </div>
                 <div id=register class=hide>
                     <form action="user/register" method="POST">
