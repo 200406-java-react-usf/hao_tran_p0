@@ -18,14 +18,25 @@ export class DailyEventService {
     constructor(private dailyEventuserRepo: DailyEventRepository) {
         this.dailyEventuserRepo = dailyEventuserRepo;
     }
-    async getUselectedEventList(): Promise<DailyEvent[]> {
-            let eventlist:DailyEvent[] = await this.dailyEventuserRepo.getUnselected();
+    async getAllEvents(): Promise<DailyEvent[]> {
+            let eventlist:DailyEvent[] = await this.dailyEventuserRepo.getAll();
             if (isEmptyObject(eventlist)){
                 throw new ResourceNotFoundError;
             }
-            eventlist = shuffle(eventlist);
             return eventlist;         
     }
+    async getUnselectedEventList(): Promise<number[]> {
+        let events:DailyEvent[] = await this.dailyEventuserRepo.getUnselected();
+        let eventIdList:number[];
+        events.forEach(element => {
+            eventIdList.push(element.id)
+        });
+        if (isEmptyObject(eventIdList)){
+            throw new ResourceNotFoundError;
+        }
+        eventIdList = shuffle(eventIdList);
+        return eventIdList;         
+}
     async getNextEvent(id:number): Promise<DailyEvent> {
             if (!ValidId(id)){
                 throw new BadRequestError();

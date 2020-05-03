@@ -274,5 +274,6 @@ input{
 
 .buffer{
     margin: 20px;
+    width: 260px !important;;
     height: 375px !important;
 }
