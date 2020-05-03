@@ -18,10 +18,10 @@ UserRouter.get('/', async (req, res) => {
 UserRouter.get('/:username', async (req, res) => {
 
     const username = req.body.username;
-    console.log(username);
+    console.log("username "+username);
     try {
         let payload = await userService.getByUsername(username);
-        res.render('pages/profile/profile', { profile: payload, error: null });
+        res.render('pages/profile/profile', {payload, error: null });
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }

@@ -24,11 +24,6 @@ window.onload = function () {
             document.getElementById("register").classList.remove("default_content_right");
             document.getElementById("register").classList.add("unselected");
         }
-        
-        // else {
-        //     document.getElementById("book_conatianer").classList.remove("book_open");
-        //     document.getElementById("book_conatianer").setAttribute("clicked", "false");
-        // }
     };
 
     document.getElementById("register").onclick = async function (event) {
@@ -61,18 +56,33 @@ window.onload = function () {
             document.getElementById("login").classList.add("show_content_right");
         }
     };
+    async function close_ani(){
+        if (document.getElementById("login").getAttribute("clicked") == "false") {
+            document.getElementById("login").classList.remove("unselected");
+            document.getElementById("login").classList.add("default_content_right");
+        }
+        if (document.getElementById("register").getAttribute("clicked") == "false") {
+            document.getElementById("register").classList.remove("unselected");
+            document.getElementById("register").classList.add("default_content_right");
+        }
+
+    };
     document.getElementById("login_form_submit").onclick = async function (event) {
+        close_ani()
+        await timeout(500);
         document.getElementById("book_conatianer").classList.remove("book_open");
-        await timeout(1000);
+        await timeout(500);
         document.getElementById("cube").classList.add("inactive");
-        await timeout(1000);
+        await timeout(500);
         document.getElementById("login_form").submit();
     };
     document.getElementById("register_form_submit").onclick = async function (event) {
+        close_ani()
+        await timeout(500);
         document.getElementById("book_conatianer").classList.remove("book_open");
-        await timeout(1000);
+        await timeout(500);
         document.getElementById("cube").classList.add("inactive");
-        await timeout(1000);
+        await timeout(500);
         document.getElementById("register_form").submit();
     };
 }

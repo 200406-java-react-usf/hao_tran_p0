@@ -20,11 +20,6 @@ body{
                 background-position 0.6s 0.51s ease;
     transform: translateY(-50%);
 }
-.box:hover {
-    width: 100%;
-    height: 50%;
-    background-position: -300px 0px;
-}
 .boxclicked {
     width: 100%;
     height: 50%;
@@ -178,4 +173,86 @@ body{
     width: 380px;
     height: 520px;
     transform-origin: 100% 100%;
+}
+
+.show_content_right{
+    margin: 20px;
+    background-color: #50a3c4;
+    z-index: 2;
+    transform-origin: 0% 100%;
+    box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.default_content_right{
+    margin: 20px;
+    background-color: #a2f801;
+    z-index: 0;
+    transform-origin: 0% 100%;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.unselected{
+    transform: rotate(10deg);
+    margin-top: 75px !important;
+    margin-left: 20px !important;
+    width: 330px !important;
+    height: 420px !important;
+    background-color: #a2f801;
+    box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
+    z-index: 0;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.ani_select{
+    transform: rotate(30deg);
+    background-color: #50a3c4;
+    margin-left: 100px;
+    box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.inputContainer{
+    width: 60%;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+.inputContainer{
+    width: 60%;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+input{
+    width: 60%;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+.label{
+    margin-left: 300px;
+    writing-mode: vertical-rl;
+    background-color: #eeff00;
+    padding-top: 50px;
+    line-height: 80px;
+    width: 80px;
+    height: -webkit-calc(100% - 50px);
+    display: block !important;
+}
+
+.form_holder{
+    width: -webkit-calc(100% - 80px);
+    height: 100% !important;
+    display: inline-block !important;
+}
+.login_form{
+    margin: 20px;
+}
+.login_form_input{
+    margin: 5px;
+}
+.login_form_submit{
+    margin-top: 45%;
+    margin-left: 200px;
+    background-color: #583447;
+    color: white;
+    width: 100px !important;
+    height: 100px !important;
 }

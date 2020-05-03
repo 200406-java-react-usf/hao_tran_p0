@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script type="text/javascript" src="../../js/profile.js"></script>
+    <script type="text/javascript" src="../js/profile.js"></script>
 
 </head>
-<link rel="stylesheet" type="text/css" href="./style.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_profile.css">
 
 <body>
-    <div id="box1" class="box" clicked="false">
+    <div id="box1" class="boxclicked">
     </div>
     <div id=book_conatianer clicked="false">
         <div id="cube" class="inactive cube hide">
@@ -22,9 +22,11 @@
                 <div class="page_left">
                 </div>
                 <div class="page_right">
-                    <div id="username"></div>
-                    <div id="score"></div>
-                    <div id="start_game"></div>
+                    <!-- <% if(profile !== null){ %>
+                    <div id="username"><%= profile.username %></div>
+                    <div id="score"><%= profile.score %></div>
+                    <div id="start_game">START</div>
+                    <% } %> -->
                 </div>
                 <div class="cube_back"></div>
                 <div class="cube_left"></div>

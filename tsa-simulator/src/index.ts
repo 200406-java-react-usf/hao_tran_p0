@@ -66,7 +66,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //to routing page
 app.get('/', function (req, res) {
-  res.render('pages/index/index');
+  res.render('pages/index');
 });
 
 //server setup

@@ -33,16 +33,22 @@ export class UserService {
     }
     async authenticateUser(username: string, password: string): Promise<User> {
         console.log("auth method called");
-        if (!isString(username) || !isString(password)) {
-            throw new BadRequestError();
-        }
-        let authUser: User;
+
         try {
+            if (!isString(username) || !isString(password)) {
+                console.log("bad request");
+                throw new BadRequestError();
+            }
+            let authUser: User;
             authUser = await this.userRepo.checkCredentials(username, password);
+            if (isEmptyObject(authUser)) {
+                console.log("auth error");
+                throw new AuthenticationError();
+            }
             this.removePassword(authUser);
             return authUser;
         } catch (e) {
-            throw new BadRequestError();
+            throw e;
         }
     }
     addNewUser(newUser: User): Promise<User> {

@@ -4,18 +4,14 @@ window.onload = function () {
         return new Promise(resolve => setTimeout(resolve, ms)
         )
     }
+    async function start_ani() {
 
-    document.getElementById("box1").onclick = async function (event) {
-        console.log("main clicked");
-        if (document.getElementById("box1").getAttribute("clicked") == "false") {
-            document.getElementById("box1").classList.add("boxclicked");
-            document.getElementById("box1").setAttribute("clicked", "true");
-        }
         document.getElementById("cube").classList.remove("hide");
         await timeout(500);
         document.getElementById("cube").classList.remove("inactive");
         await timeout(500);
-    };
+    }
+    start_ani();
     document.getElementById("cube").onclick = async function (event) {
         if (document.getElementById("book_conatianer").getAttribute("clicked") == "false") {
             document.getElementById("book_conatianer").classList.add("book_open");
@@ -24,7 +20,7 @@ window.onload = function () {
             document.getElementById("register").classList.remove("default_content_right");
             document.getElementById("register").classList.add("unselected");
         }
-        
+
         // else {
         //     document.getElementById("book_conatianer").classList.remove("book_open");
         //     document.getElementById("book_conatianer").setAttribute("clicked", "false");

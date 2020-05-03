@@ -12,18 +12,16 @@ AuthRouter.post('', async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         console.log(req.body);
-        
         let authUser = await userService.authenticateUser(username, password);
+
         let payload = new Principal(authUser.id, authUser.username, authUser.score, authUser.userrole);
         req.session.principal = payload;
-        res.status(200).json(payload);
-        // res.redirect("/:username");   
+        let profile = { "username": authUser.username, "score": authUser.score };
+        res.render('pages/profile', { profile, error: null });
+
     } catch (e) {
-        res.status(e.statusCode || 500).json(e);
+        res.send("unsucessful login")
     }
+
 });
 
-AuthRouter.get('/test', async (req, res) => {
-    console.log("test auth");
-    res.send("auth testing router");
-});
