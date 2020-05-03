@@ -5,11 +5,17 @@ window.onload = function () {
         )
     }
     async function start_ani() {
-
+        document.getElementById("box1").classList.add("boxclicked");
+        await timeout(500);
         document.getElementById("cube").classList.remove("hide");
         await timeout(500);
         document.getElementById("cube").classList.remove("inactive");
         await timeout(500);
+        document.getElementById("book_conatianer").classList.add("book_open");
+        document.getElementById("book_conatianer").setAttribute("clicked", "true");
+        await timeout(500);
+        document.getElementById("back_page").classList.remove("default_content_right");
+        document.getElementById("back_page").classList.add("unselected");
     }
     start_ani();
     document.getElementById("cube").onclick = async function (event) {
@@ -17,44 +23,39 @@ window.onload = function () {
             document.getElementById("book_conatianer").classList.add("book_open");
             document.getElementById("book_conatianer").setAttribute("clicked", "true");
             await timeout(500);
-            document.getElementById("register").classList.remove("default_content_right");
-            document.getElementById("register").classList.add("unselected");
-        }
-
-        // else {
-        //     document.getElementById("book_conatianer").classList.remove("book_open");
-        //     document.getElementById("book_conatianer").setAttribute("clicked", "false");
-        // }
-    };
-
-    document.getElementById("register").onclick = async function (event) {
-        if (document.getElementById("register").getAttribute("clicked") == "false") {
-            document.getElementById("register").classList.add("ani_select");
-            document.getElementById("register").classList.remove("unselected");
-            document.getElementById("register").setAttribute("clicked", "true");
-
-            document.getElementById("login").classList.remove("show_content_right");
-            document.getElementById("login").classList.add("unselected");
-            document.getElementById("login").setAttribute("clicked", "false");
-
-            await timeout(1000);
-            document.getElementById("register").classList.remove("ani_select");
-            document.getElementById("register").classList.add("show_content_right");
+            document.getElementById("back_page").classList.remove("default_content_right");
+            document.getElementById("back_page").classList.add("unselected");
         }
     };
-    document.getElementById("login").onclick = async function (event) {
-        if (document.getElementById("login").getAttribute("clicked") == "false") {
-            document.getElementById("login").classList.remove("unselected");
-            document.getElementById("login").classList.add("ani_select");
-            document.getElementById("login").setAttribute("clicked", "true");
 
-            document.getElementById("register").classList.remove("show_content_right");
-            document.getElementById("register").classList.add("unselected");
-            document.getElementById("register").setAttribute("clicked", "false");
+    document.getElementById("back_page").onclick = async function (event) {
+        if (document.getElementById("back_page").getAttribute("clicked") == "false") {
+            document.getElementById("back_page").classList.add("ani_select");
+            document.getElementById("back_page").classList.remove("unselected");
+            document.getElementById("back_page").setAttribute("clicked", "true");
+
+            document.getElementById("front_page").classList.remove("show_content_right");
+            document.getElementById("front_page").classList.add("unselected");
+            document.getElementById("front_page").setAttribute("clicked", "false");
 
             await timeout(1000);
-            document.getElementById("login").classList.remove("ani_select");
-            document.getElementById("login").classList.add("show_content_right");
+            document.getElementById("back_page").classList.remove("ani_select");
+            document.getElementById("back_page").classList.add("show_content_right");
+        }
+    };
+    document.getElementById("front_page").onclick = async function (event) {
+        if (document.getElementById("front_page").getAttribute("clicked") == "false") {
+            document.getElementById("front_page").classList.remove("unselected");
+            document.getElementById("front_page").classList.add("ani_select");
+            document.getElementById("front_page").setAttribute("clicked", "true");
+
+            document.getElementById("back_page").classList.remove("show_content_right");
+            document.getElementById("back_page").classList.add("unselected");
+            document.getElementById("back_page").setAttribute("clicked", "false");
+
+            await timeout(1000);
+            document.getElementById("front_page").classList.remove("ani_select");
+            document.getElementById("front_page").classList.add("show_content_right");
         }
     };
     document.getElementById("login_form_submit").onclick = async function (event) {

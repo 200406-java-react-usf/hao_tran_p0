@@ -13,20 +13,40 @@
 <link rel="stylesheet" type="text/css" href="../styles/style_profile.css">
 
 <body>
-    <div id="box1" class="boxclicked">
+    <div id="box1" class="box boxclicked">
     </div>
     <div id=book_conatianer clicked="false">
         <div id="cube" class="inactive cube hide">
             <div class="cube_inner">
                 <div class="cube_front"></div>
                 <div class="page_left">
+                    
                 </div>
                 <div class="page_right">
-                    <!-- <% if(profile !== null){ %>
-                    <div id="username"><%= profile.username %></div>
-                    <div id="score"><%= profile.score %></div>
-                    <div id="start_game">START</div>
-                    <% } %> -->
+                    <div id=front_page class="show_content_right" clicked="true">
+                        <div class="form_holder">
+                            <div class="buffer">
+                            <h2>You are at the gate of </h2>
+                            <h1>Constantinopolis </h1>
+                            <h3>Welcome to your office</h3>
+
+                            <h3>Your current asset is:</h3>
+                            <h4>It is another fine day in the city of world's desire</h4>
+                            </div>
+                            <div id="start" class="start">Start</div>
+                        </div>
+                        <p class="label">Login</p>
+                    </div>
+                    <div id=back_page class="default_content_right" clicked="false">
+                        <div class="form_holder">
+                            <div class="buffer">
+                            <h3>Your current asset is:</h3>
+                            <h3>solidi</h3>
+                            </div>
+                            <div id="start" class="start">Start</div>
+                        </div>
+                        <p class="label">Current Asset</p>
+                    </div>
                 </div>
                 <div class="cube_back"></div>
                 <div class="cube_left"></div>

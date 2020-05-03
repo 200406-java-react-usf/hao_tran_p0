@@ -20,6 +20,11 @@ body{
                 background-position 0.6s 0.51s ease;
     transform: translateY(-50%);
 }
+.box:hover {
+    width: 100%;
+    height: 50%;
+    background-position: -300px 0px;
+}
 .boxclicked {
     width: 100%;
     height: 50%;
@@ -174,7 +179,6 @@ body{
     height: 520px;
     transform-origin: 100% 100%;
 }
-
 .show_content_right{
     margin: 20px;
     background-color: #50a3c4;
@@ -235,24 +239,40 @@ input{
     width: 80px;
     height: -webkit-calc(100% - 50px);
     display: block !important;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.unselected .label{
+    background-color: #645f1c;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
 }
 
 .form_holder{
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px) !important;
     height: 100% !important;
     display: inline-block !important;
 }
-.login_form{
-    margin: 20px;
-}
-.login_form_input{
-    margin: 5px;
-}
-.login_form_submit{
-    margin-top: 45%;
-    margin-left: 200px;
+.start{
+    margin-top: 360px !important;
+    margin-left: 245px !important;
     background-color: #583447;
     color: white;
     width: 100px !important;
     height: 100px !important;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+.unselected .form_holder .start{
+    opacity: 0;
+    display: block;
+    margin-top: 360px !important;
+    margin-left: 230px !important;
+    background-color: #583447;
+    color: white;
+    width: 100px !important;
+    height: 100px !important;
+    transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+}
+
+.buffer{
+    margin: 20px;
+    height: 375px !important;
 }
