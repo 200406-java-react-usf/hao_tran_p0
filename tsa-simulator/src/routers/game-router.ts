@@ -37,9 +37,8 @@ GameRouter.get('/eventlist', async (req, res) => {
     }
 });
 
-GameRouter.get('/nestevent', async (req, res) => {
+GameRouter.get('/nextevent', async (req, res) => {
     try {
-        let id = +req.params.id;
         console.log("game router next event called");
         let event = await eventService.getNextEvent();
         res.json(event);
@@ -52,7 +51,7 @@ GameRouter.post('/group', async (req, res) => {
     try {
         let passport = req.body.passport;
         let groupname = req.body.groupname;
-        console.log("game router nextevent called");
+        console.log("game router group called");
         let event = await passportService.checkIfInGroup(passport, groupname);
         res.json(event);
     } catch (e) {
