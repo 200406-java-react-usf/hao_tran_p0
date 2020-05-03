@@ -78,6 +78,19 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
+    // async getGroupByID(id): Promise<DailyEvent[]> {
+    //     let client: PoolClient;
+    //     try {
+    //         client = await connectionPool.connect();
+    //         let sql = "SELECT * FROM groups WHERE id = $1";
+    //         let rs = await client.query(sql, [id]);
+    //         return mapGroupResult(rs.rows[0]);
+    //     } catch (e) {
+    //         throw new InternalServerError();
+    //     } finally {
+    //         client && client.release();
+    //     }
+    // }
     save(newEvent: DailyEvent): Promise<DailyEvent> {
         return new Promise<DailyEvent>((resolve, reject) => {
             reject("new NotImplementedError()");

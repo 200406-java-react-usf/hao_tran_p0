@@ -57,7 +57,8 @@ create table dailyevents
 );
 
 --groups 
-create table religion_christian AS
+create table religion_christian 
+AS
 SELECT *
 FROM passports
 WHERE "religion" = 'Orthodox';

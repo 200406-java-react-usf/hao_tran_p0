@@ -9,9 +9,9 @@
       "allowSyntheticDefaultImports": true
     },
     "include": [
-      "./src/**/*", "index.ts", "src/views/js"
+      "./src/**/*", "index.ts"
     ],
     "exclude": [
-      "src/views/pages", "src/views/styles"
+      "src/views"
     ]
   }

@@ -11,6 +11,7 @@ import { UserRouter } from "./routers/user-router"
 import { AuthRouter } from './routers/auth-router';
 import { GameRouter } from './routers/game-router';
 
+
 // environment configuration
 dotenv.config();
 

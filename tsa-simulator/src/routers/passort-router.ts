@@ -14,3 +14,4 @@ PassportRouter.get('', async (req, res) => {
         res.status(e.statusCode || 500).json(e);
     }
 });
+
