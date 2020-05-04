@@ -35,7 +35,7 @@ export class UserRepository implements CrudRepository<User> {
         }
     
     }
-    getById(id: number): Promise<User> {
+    async getById(id: number): Promise<User> {
         return new Promise<User>((resolve, reject) => {
                 reject("new NotImplementedError()");
             });
