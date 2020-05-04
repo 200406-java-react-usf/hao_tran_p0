@@ -1,8 +1,8 @@
   
-import { DailyEventRepository } from '../repos/dailyEvent-repo';
+import { UserRepository } from '../repos/user-repo';
 import * as mockIndex from '..';
 import * as mockMapper from '../util/result-set-mapper';
-import { DailyEvent } from '../models/dailyEvent';
+import { User } from '../models/user';
 
 /*
     We need to mock the connectionPool exported from the main module
@@ -25,9 +25,9 @@ jest.mock('../util/result-set-mapper', () => {
     }
 });
 
-describe('Event Repo', () => {
+describe('userRepo', () => {
 
-    let sut = new DailyEventRepository();
+    let sut = new UserRepository();
     let mockConnect = mockIndex.connectionPool.connect;
     beforeEach(() => {
 
@@ -43,10 +43,10 @@ describe('Event Repo', () => {
                         rows: [
                             {
                                 id: 1,
-                                title: 'test_title',
-                                content: 'test_content',
-                                groupname: "test_group",
-                                selected: false
+                                username: 'aanderson',
+                                password: 'password',
+                                score: 0,
+                                role: "tester"
                             }
                         ]
                     }
@@ -54,17 +54,17 @@ describe('Event Repo', () => {
                 release: jest.fn()
             }
         });
-        console.log(mockMapper.mapEventResultSet);
-        (mockMapper.mapEventResultSet as jest.Mock).mockClear();
+        console.log("user" + mockMapper.mapUserResultSet);
+        (mockMapper.mapUserResultSet as jest.Mock).mockClear();
     });
 
-    test('should resolve to an array of event when getAll retrieves records from data source', async () => {
+    test('should resolve to an array of Users when getAll retrieves records from data source', async () => {
         
         // Arrange
         expect.hasAssertions();
 
-        let mockUser = new DailyEvent(2, 'test', 'test', 'test', false);
-        (mockMapper.mapEventResultSet as jest.Mock).mockReturnValue(mockUser);
+        let mockUser = new User(1, 'un', 'pw', 0, "tester");
+        (mockMapper.mapUserResultSet as jest.Mock).mockReturnValue(mockUser);
 
         // Act
         let result = await sut.getAll();
