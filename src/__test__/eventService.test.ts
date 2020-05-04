@@ -2,7 +2,7 @@ import { DailyEventService } from '../services/eventService';
 import { DailyEventRepository } from '../repos/dailyEvent-repo';
 import Validator from '../util/tools';
 import { DailyEvent } from "../models/dailyEvent";
-import { ResourceNotFoundError, BadRequestError } from '../errors/errors';
+import { ResourceNotFoundError, BadRequestError, ResourcePersistenceError } from '../errors/errors';
 
 jest.mock('../repos/user-repo', () => {
     
@@ -18,7 +18,7 @@ jest.mock('../repos/user-repo', () => {
     }
 
 });
-describe('userService', () => {
+describe('Event Service', () => {
 
     let sut: DailyEventService;
     let mockRepo;
@@ -27,8 +27,8 @@ describe('userService', () => {
         new DailyEvent(1, 'title', 'content', "grpname", false),
         new DailyEvent(2, 'title', 'content', "grpname", false),
         new DailyEvent(3, 'title', 'content', "grpname", false),
-        new DailyEvent(4, 'title', 'content', "grpname", true),
-        new DailyEvent(5, 'title', 'content', "grpname", true)
+        new DailyEvent(4, 'title', 'content', "grpname", false),
+        new DailyEvent(5, 'title', 'content', "grpname", false)
     ];
 
     beforeEach(() => {
@@ -69,6 +69,24 @@ describe('userService', () => {
         expect(result.length).toBe(5);
     });
 
+    test('should get nothing with no event provided', async () => {
+
+        // Arrange
+        expect.assertions(1);
+
+        mockRepo.getAll = jest.fn().mockImplementation(() => {
+            return new Promise<any>((resolve) => resolve({}));
+        });
+        // Act
+        try{
+        let result = await sut.getEvents();}
+        // Assert
+        catch(e){
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
+    });
+
     test('should get 1 unselected random event', async () => {
 
         // Arrange
@@ -86,6 +104,26 @@ describe('userService', () => {
         expect(result).toBeTruthy();
         expect(result.selected).toBeFalsy();
     });
+
+    test('should get no resource with no event provided', async () => {
+
+        // Arrange
+        expect.assertions(1);
+
+        mockRepo.listUnselected = jest.fn().mockImplementation(() => {
+            return new Promise<any>((resolve) => resolve({}));
+        });
+
+        // Act
+        try{
+        let result = await sut.getNextEvent();}
+        // Assert
+        catch(e){
+            
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
+    });
     test('should reset all events', async () => {
 
         // Arrange
@@ -100,5 +138,23 @@ describe('userService', () => {
         let result = await sut.resetEventList();
         // Assert
         expect(result).toBeTruthy();
+    });
+    test('should get false with no event provided', async () => {
+
+        // Arrange
+        expect.assertions(1);
+        mockRepo.resetEvent = jest.fn().mockImplementation(() => {
+            return new Promise<boolean>((resolve) => resolve(false));
+        });
+
+        // Act
+        try{
+        let result = await sut.resetEventList();}
+        // Assert
+        catch(e){
+            
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
     });
 });

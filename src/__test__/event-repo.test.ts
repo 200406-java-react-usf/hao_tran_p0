@@ -1,8 +1,8 @@
   
-import { UserRepository } from '../repos/user-repo';
-import * as mockIndex from '..';
+import { DailyEventRepository } from '../repos/dailyEvent-repo';
+import { connectionPool } from '..';
 import * as mockMapper from '../util/result-set-mapper';
-import { User } from '../models/user';
+import { DailyEvent } from '../models/dailyEvent';
 
 /*
     We need to mock the connectionPool exported from the main module
@@ -18,17 +18,18 @@ jest.mock('..', () => {
     }
 });
 
+
 // The result-set-mapper module also needs to be mocked
 jest.mock('../util/result-set-mapper', () => {
     return {
-        mapUserResultSet: jest.fn()
+        mapEventResultSet: jest.fn()
     }
 });
 
-describe('userRepo', () => {
+describe('Event Repo', () => {
 
-    let sut = new UserRepository();
-    let mockConnect = mockIndex.connectionPool.connect;
+    let sut = new DailyEventRepository();
+    let mockConnect = connectionPool.connect;
     beforeEach(() => {
 
         /*
@@ -43,10 +44,10 @@ describe('userRepo', () => {
                         rows: [
                             {
                                 id: 1,
-                                username: 'aanderson',
-                                password: 'password',
-                                score: 0,
-                                role: "tester"
+                                title: 'test_title',
+                                content: 'test_content',
+                                groupname: "test_group",
+                                selected: false
                             }
                         ]
                     }
@@ -54,16 +55,16 @@ describe('userRepo', () => {
                 release: jest.fn()
             }
         });
-        (mockMapper.mapUserResultSet as jest.Mock).mockClear();
+        (mockMapper.mapEventResultSet as jest.Mock).mockClear();
     });
 
-    test('should resolve to an array of Users when getAll retrieves records from data source', async () => {
+    test('should resolve to an array of event when getAll retrieves records from data source', async () => {
         
         // Arrange
-        expect.hasAssertions();
+        // expect.hasAssertions();
 
-        let mockUser = new User(1, 'un', 'pw', 0, "tester");
-        (mockMapper.mapUserResultSet as jest.Mock).mockReturnValue(mockUser);
+        let mockEvent = new DailyEvent(2, 'test', 'test', 'test', false);
+        (mockMapper.mapEventResultSet as jest.Mock).mockReturnValue(mockEvent);
 
         // Act
         let result = await sut.getAll();
@@ -72,7 +73,5 @@ describe('userRepo', () => {
         expect(result).toBeTruthy();
         expect(result instanceof Array).toBe(true);
         expect(result.length).toBe(1);
-        expect(mockConnect).toBeCalledTimes(1);
-
     });
 });

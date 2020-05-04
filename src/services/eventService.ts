@@ -27,7 +27,8 @@ export class DailyEventService {
         let eventlist: DailyEvent[] = await this.dailyEventRepo.listUnselected();
         let randomIndex = Math.floor(Math.random() * eventlist.length)
         let nextEvent: DailyEvent = eventlist[randomIndex];
-        if (isEmptyObject(nextEvent)) {
+        
+        if (isEmptyObject(nextEvent)||!nextEvent) {
             throw new ResourceNotFoundError();
         } else {
             await this.dailyEventRepo.updateSelected(nextEvent.id);
@@ -39,7 +40,7 @@ export class DailyEventService {
         if (taskCheck) {
             return true;
         } else {
-            throw new ResourcePersistenceError();
+            throw new ResourceNotFoundError();
         }
     }
 }

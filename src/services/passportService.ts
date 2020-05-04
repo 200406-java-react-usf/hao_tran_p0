@@ -24,12 +24,12 @@ export class PassportService {
     }
     async getNextPassport(): Promise<Passport> {
         let userlist: Passport[] = await this.passportRepo.getUnselected();
-        if (isEmptyObject(userlist)) {
+        if (isEmptyObject(userlist)||!userlist) {
             throw new ResourceNotFoundError();
         }
         let nextPassportId: Passport = userlist[Math.floor(Math.random() * userlist.length)];
         let nextPassport: Passport = { ...await this.passportRepo.getById(nextPassportId.id) };
-        if (isEmptyObject(nextPassport)) {
+        if (isEmptyObject(nextPassport)||!nextPassport) {
             throw new ResourceNotFoundError();
         }
         //mark the passport as selected
