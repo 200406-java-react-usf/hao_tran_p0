@@ -70,7 +70,6 @@ export class UserRepository implements CrudRepository<User> {
         }
     }
     async checkCredentials(username: string, password: string) {
-        console.log("checkCredentials method called");
         let client: PoolClient;
 
         try {

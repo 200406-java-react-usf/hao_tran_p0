@@ -7,7 +7,6 @@ export const AuthRouter = express.Router();
 const userService = AppConfig.userService;
 
 AuthRouter.post('', async (req, res) => {
-    console.log("in auth");
     try {
         const username = req.body.username;
         const password = req.body.password;

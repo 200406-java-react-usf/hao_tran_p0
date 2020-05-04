@@ -7,7 +7,22 @@ import { User } from "../models/user";
 import { Passport } from "../models/passport";
 import { DailyEvent } from "../models/dailyEvent";
 
-export function mapUserResultSet(resultSet: UserSchema): User {
+function mapEventResultSet(resultSet:DailyEventSchema): DailyEvent {
+    
+    if (!resultSet) {
+        return {} as DailyEvent;
+    }
+
+    return new DailyEvent(
+        resultSet.id,
+        resultSet.title,
+        resultSet.content,
+        resultSet.groupname,
+        resultSet.selected
+    );
+}
+
+function mapUserResultSet(resultSet: UserSchema): User {
     
     if (!resultSet) {
         return {} as User;
@@ -22,7 +37,7 @@ export function mapUserResultSet(resultSet: UserSchema): User {
     );
 }
 
-export function mapPassportResultSet(resultSet: PassportSchema): Passport {
+function mapPassportResultSet(resultSet: PassportSchema): Passport {
     if (!resultSet) {
         return {} as Passport;
     }
@@ -40,17 +55,8 @@ export function mapPassportResultSet(resultSet: PassportSchema): Passport {
     );
 }
 
-export function mapEventResultSet(resultSet:DailyEventSchema): DailyEvent {
-    
-    if (!resultSet) {
-        return {} as DailyEvent;
-    }
-
-    return new DailyEvent(
-        resultSet.id,
-        resultSet.title,
-        resultSet.content,
-        resultSet.groupname,
-        resultSet.selected
-    );
+module.exports = {
+    mapEventResultSet,
+    mapPassportResultSet,
+    mapUserResultSet
 }
