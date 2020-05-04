@@ -1,5 +1,6 @@
 import { UserService } from '../services/userService';
 import { UserRepository } from '../repos/user-repo';
+import Validator from '../util/tools';
 import { User } from '../models/user';
 import { ResourceNotFoundError, BadRequestError } from '../errors/errors';
 
