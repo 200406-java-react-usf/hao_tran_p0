@@ -2,7 +2,7 @@ import { CrudRepository } from "./crud-repo";
 import { DailyEvent } from "../models/dailyEvent";
 import { PoolClient } from 'pg';
 import { connectionPool } from '..';
-import { mapEventResult } from "../util/result-mapper"
+import { mapEventResultSet } from "../util/result-set-mapper"
 import {
     BadRequestError,
     ResourceNotFoundError,
@@ -24,7 +24,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM dailyevents";
             let rs = await client.query(sql);
-            return rs.rows.map(mapEventResult);
+            return rs.rows.map(mapEventResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -37,7 +37,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM dailyevents WHERE selected = false";
             let rs = await client.query(sql);
-            return rs.rows.map(mapEventResult);
+            return rs.rows.map(mapEventResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -53,7 +53,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM dailyevents where id=$1";
             let rs = await client.query(sql, [id]);
-            return mapEventResult(rs.rows[0]);
+            return mapEventResultSet(rs.rows[0]);
         } catch (e) {
             throw new InternalServerError();
         } finally {

@@ -3,7 +3,7 @@ import { CrudRepository } from "./crud-repo";
 import { Passport } from "../models/passport";
 import { PoolClient } from 'pg';
 import { connectionPool } from '..';
-import { mapPassportResult } from "../util/result-mapper"
+import { mapPassportResultSet } from "../util/result-set-mapper"
 import {
     BadRequestError,
     ResourceNotFoundError,
@@ -25,7 +25,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM passports";
             let rs = await client.query(sql);
-            return  rs.rows.map(mapPassportResult);
+            return  rs.rows.map(mapPassportResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -42,7 +42,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM passports where id=$1";
             let rs = await client.query(sql, [id]);
-            return mapPassportResult(rs.rows[0]);
+            return mapPassportResultSet(rs.rows[0]);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -55,7 +55,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM passports where selected = false";
             let rs = await client.query(sql);
-            return  rs.rows.map(mapPassportResult);
+            return  rs.rows.map(mapPassportResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -97,7 +97,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM $1";
             let rs = await client.query(sql, [name]);
-            return  rs.rows.map(mapPassportResult);
+            return  rs.rows.map(mapPassportResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {

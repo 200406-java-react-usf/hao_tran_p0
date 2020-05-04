@@ -3,7 +3,7 @@ import { CrudRepository } from "./crud-repo";
 import { User } from "../models/user";
 import { PoolClient } from 'pg';
 import { connectionPool } from '..';
-import { mapUserResult } from "../util/result-mapper"
+import { mapUserResultSet } from "../util/result-set-mapper"
 import {
     BadRequestError,
     ResourceNotFoundError,
@@ -26,7 +26,7 @@ export class UserRepository implements CrudRepository<User> {
             client = await connectionPool.connect();
             let sql = `${this.baseQuery}`;
             let rs = await client.query(sql);
-            return  rs.rows.map(mapUserResult);
+            return  rs.rows.map(mapUserResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -48,7 +48,7 @@ export class UserRepository implements CrudRepository<User> {
             client = await connectionPool.connect();
             let sql = `${this.baseQuery} where username = $1`;
             let rs = await client.query(sql, [username]);
-            return mapUserResult(rs.rows[0]);
+            return mapUserResultSet(rs.rows[0]);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -77,8 +77,7 @@ export class UserRepository implements CrudRepository<User> {
             client = await connectionPool.connect();
             let sql = `${this.baseQuery} where username = $1 and userpassword = $2`;
             let rs = await client.query(sql, [username, password]);
-            console.log(mapUserResult(rs.rows[0]));
-            return mapUserResult(rs.rows[0]);
+            return mapUserResultSet(rs.rows[0]);
         } catch (e) {
             throw new InternalServerError();
         } finally {

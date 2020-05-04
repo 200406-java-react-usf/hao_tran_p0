@@ -7,7 +7,7 @@ import { User } from "../models/user";
 import { Passport } from "../models/passport";
 import { DailyEvent } from "../models/dailyEvent";
 
-export function mapUserResult(resultSet: UserSchema): User {
+export function mapUserResultSet(resultSet: UserSchema): User {
     
     if (!resultSet) {
         return {} as User;
@@ -22,7 +22,7 @@ export function mapUserResult(resultSet: UserSchema): User {
     );
 }
 
-export function mapPassportResult(resultSet: PassportSchema): Passport {
+export function mapPassportResultSet(resultSet: PassportSchema): Passport {
     if (!resultSet) {
         return {} as Passport;
     }
@@ -40,7 +40,7 @@ export function mapPassportResult(resultSet: PassportSchema): Passport {
     );
 }
 
-export function mapEventResult(resultSet:DailyEventSchema): DailyEvent {
+export function mapEventResultSet(resultSet:DailyEventSchema): DailyEvent {
     
     if (!resultSet) {
         return {} as DailyEvent;
