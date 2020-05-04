@@ -5,16 +5,16 @@ import { Passport } from "../models/passport";
 import { ResourceNotFoundError, BadRequestError, ResourcePersistenceError } from '../errors/errors';
 
 jest.mock('../repos/user-repo', () => {
-    
+
     return new class PassportRepository {
-            getAll = jest.fn();
-            getById = jest.fn();
-            listUnselected = jest.fn();
-            updateSelected = jest.fn();
-            resetPassport = jest.fn();
-            save = jest.fn();
-            update = jest.fn();
-            deleteById = jest.fn();
+        getAll = jest.fn();
+        getById = jest.fn();
+        listUnselected = jest.fn();
+        updateSelected = jest.fn();
+        resetPassport = jest.fn();
+        save = jest.fn();
+        update = jest.fn();
+        deleteById = jest.fn();
     }
 
 });
@@ -35,21 +35,21 @@ describe('Passport Service', () => {
 
         mockRepo = jest.fn(() => {
             return {
-                getAll : jest.fn(),
-                getById  :  jest.fn(),
-                getUnselected  :  jest.fn(),
-                updateSelected  :  jest.fn(),
-                resetPassport  :  jest.fn(),
-                getPassportInGroup  :  jest.fn(),
-                save  :  jest.fn(),
-                update  :  jest.fn(),
-                deleteById  :  jest.fn()
+                getAll: jest.fn(),
+                getById: jest.fn(),
+                getUnselected: jest.fn(),
+                updateSelected: jest.fn(),
+                resetPassport: jest.fn(),
+                getPassportInGroup: jest.fn(),
+                save: jest.fn(),
+                update: jest.fn(),
+                deleteById: jest.fn()
             }
         });
 
         // @ts-ignore
         sut = new PassportService(mockRepo);
-    
+
     });
 
 
@@ -79,10 +79,11 @@ describe('Passport Service', () => {
             return new Promise<any>((resolve) => resolve({}));
         });
         // Act
-        try{
-        let result = await sut.getAll();}
+        try {
+            let result = await sut.getAll();
+        }
         // Assert
-        catch(e){
+        catch (e) {
             expect(e instanceof ResourceNotFoundError).toBe(true);
         }
 
@@ -124,10 +125,11 @@ describe('Passport Service', () => {
             return new Promise<boolean>((resolve) => resolve(true));
         });
         // Act
-        try{
-        let result = await sut.getNextPassport();}
+        try {
+            let result = await sut.getNextPassport();
+        }
         // Assert
-        catch(e){
+        catch (e) {
             expect(e instanceof ResourceNotFoundError).toBe(true);
         }
     });
@@ -147,10 +149,11 @@ describe('Passport Service', () => {
             return new Promise<boolean>((resolve) => resolve(true));
         });
         // Act
-        try{
-        let result = await sut.getNextPassport();}
+        try {
+            let result = await sut.getNextPassport();
+        }
         // Assert
-        catch(e){
+        catch (e) {
             expect(e instanceof ResourceNotFoundError).toBe(true);
         }
     });
@@ -169,18 +172,103 @@ describe('Passport Service', () => {
             return new Promise<boolean>((resolve) => resolve(false));
         });
         // Act
-        try{
-        let result = await sut.getNextPassport();}
+        try {
+            let result = await sut.getNextPassport();
+        }
         // Assert
-        catch(e){
+        catch (e) {
             expect(e instanceof ResourceNotFoundError).toBe(true);
         }
     });
     test('should get ExclusionGrouplist', async () => {
 
         // Arrange
-        mockRepo.getPassportInGroup = jest.fn().mockReturnValue(false);
+        expect.assertions(1);
 
+        mockRepo.getPassportInGroup = jest.fn().mockImplementation(() => {
+            return new Promise<Passport[]>((resolve) => resolve(mockPassports));
+        });
+        // Act
+        let result = await sut.getExclusionGrouplist("test");
+        // Assert
+        expect(result).toBeTruthy();
+    });
+
+    test('should get none', async () => {
+
+        // Arrange
+        expect.assertions(0);
+
+        mockRepo.getPassportInGroup = jest.fn().mockImplementation(() => {
+            return new Promise<Passport[]>((resolve) => resolve(mockPassports));
+        });
+        // Act
+        try {
+            let result = await sut.getExclusionGrouplist("test");
+        }
+        // Assert
+        catch (e) {
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+    });
+
+    test('should get none', async () => {
+
+        // Arrange
+        expect.assertions(1);
+
+        mockRepo.getPassportInGroup = jest.fn().mockImplementation(() => {
+            return new Promise<any>((resolve) => resolve());
+        });
+        // Act
+        try {
+            let result = await sut.getExclusionGrouplist("test");
+        }
+        // Assert
+        catch (e) {
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+    });
+    test('checkIfInGroup should get true', async () => {
+
+        // Arrange
+        expect.assertions(1);
+
+        mockRepo.getExclusionGrouplist = jest.fn().mockImplementation(() => {
+            return new Promise<number[]>((resolve) => resolve([1, 2, 3]));
+        });
+        mockRepo.getPassportInGroup = jest.fn().mockImplementation(() => {
+            return new Promise<Passport[]>((resolve) => resolve(mockPassports));
+        });
+        // Act
+        let result = await sut.checkIfInGroup(mockPassports[0], "test");
+        // Assert
+        expect(result).toBeTruthy();
+    });
+
+    test('checkIfInGroup should get ResourceNotFoundError', async () => {
+
+        // Arrange
+        expect.assertions(1);
+
+        mockRepo.getExclusionGrouplist = jest.fn().mockImplementation(() => {
+            return new Promise<number[]>((resolve) => resolve([]));
+        });
+        mockRepo.getPassportInGroup = jest.fn().mockImplementation(() => {
+            return new Promise<Passport[]>((resolve) => resolve([]));
+        });
+        // Act
+        try {
+            let result = await sut.checkIfInGroup(mockPassports[0], "test");
+        }
+        // Assert
+        catch (e) {
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+    });
+    test('should get true', async () => {
+
+        // Arrange
         expect.assertions(1);
 
         mockRepo.resetPassport = jest.fn().mockImplementation(() => {
@@ -191,45 +279,22 @@ describe('Passport Service', () => {
         // Assert
         expect(result).toBeTruthy();
     });
-
-        test('should get error with cannot update', async () => {
+    test('should get true', async () => {
 
         // Arrange
-        expect.assertions(0);
+        expect.assertions(1);
 
-        mockRepo.getUnselected = jest.fn().mockImplementation(() => {
-            return new Promise<Passport[]>((resolve) => resolve(mockPassports));
-        });
-        mockRepo.getById = jest.fn().mockImplementation(() => {
-            return new Promise<Passport>((resolve) => resolve(mockPassports[1]));
-        });
-        mockRepo.updateSelected = jest.fn().mockImplementation(() => {
+        mockRepo.resetPassport = jest.fn().mockImplementation(() => {
             return new Promise<boolean>((resolve) => resolve(false));
         });
         // Act
-        try{
-        let result = await sut.getNextPassport();}
+        try {
+            let result = await sut.resetPassportList();
+        }
         // Assert
         catch(e){
-            expect(e instanceof ResourceNotFoundError).toBe(true);
+            expect(e instanceof ResourceNotFoundError).toBe(false);
         }
     });
-    // test('should get false with no event provided', async () => {
 
-    //     // Arrange
-    //     expect.assertions(1);
-    //     mockRepo.resetPassport = jest.fn().mockImplementation(() => {
-    //         return new Promise<boolean>((resolve) => resolve(false));
-    //     });
-
-    //     // Act
-    //     try{
-    //     let result = await sut.resetPassportList();}
-    //     // Assert
-    //     catch(e){
-            
-    //         expect(e instanceof ResourceNotFoundError).toBe(true);
-    //     }
-
-    // });
 });

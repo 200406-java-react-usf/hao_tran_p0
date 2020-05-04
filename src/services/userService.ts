@@ -1,6 +1,10 @@
 import { User } from "../models/user";
 import { UserRepository } from "../repos/user-repo";
-// import { isValidId, isValidStrings, isValidObject, isPropertyOf, isEmptyObject } from "../util/validator";
+import {
+    ValidId, isStrings,
+    isValidObject,
+    isEmptyObject
+} from "../util/tools";
 import {
     BadRequestError,
     ResourceNotFoundError,
@@ -8,11 +12,7 @@ import {
     ResourcePersistenceError,
     AuthenticationError
 } from "../errors/errors";
-import {
-    ValidId,
-    isEmptyObject
-} from "../util/tools"
-import { isString } from "util";
+
 
 
 export class UserService {
@@ -20,50 +20,40 @@ export class UserService {
         this.userRepo = userRepo;
     }
     async getByUsername(username: string): Promise<User> {
-        if (typeof username !== 'string') {
-            throw new BadRequestError();
-        }
+
         let user = await this.userRepo.getByUsername(username);
-        if (isEmptyObject(user)) {
+        if (isEmptyObject(user) || !user) {
             throw new ResourceNotFoundError();
+        } else {
+            return this.removePassword(user);
         }
-        return this.removePassword(user);
 
     }
     async authenticateUser(username: string, password: string): Promise<User> {
         try {
-            if (!isString(username) || !isString(password)) {
-                throw new BadRequestError();
-            }
+
             let authUser: User;
             authUser = await this.userRepo.checkCredentials(username, password);
             if (isEmptyObject(authUser)) {
                 throw new AuthenticationError();
+            } else {
+                this.removePassword(authUser);
+                return this.removePassword(authUser);
             }
-            this.removePassword(authUser);
-            return this.removePassword(authUser);
+
         } catch (e) {
             throw e;
         }
     }
-    addNewUser(newUser: User): Promise<User> {
-        return new Promise<User>(async (resolve, reject) => {
-            let conflict = this.getByUsername(newUser.username);
-
-            if (conflict) {
-                reject(new ResourcePersistenceError('The provided username is already taken.'));
-                return;
-            }
-            try {
-                const persistedUser = await this.userRepo.save(newUser);
-                resolve(this.removePassword(persistedUser));
-            } catch (e) {
-                reject(e);
-            }
-
-        });
-
-    }
+    async addNewUser(newUser: User): Promise<User> {
+        try {
+            newUser.userrole = 'User'; // all new registers have 'User' role by default
+            const persistedUser = await this.userRepo.save(newUser);
+            return this.removePassword(persistedUser);
+        } catch (e) {
+            throw new BadRequestError();
+        }
+    };
     private removePassword(user: User): User {
         if (!user || !user.userpassword) return user;
         let usr = { ...user };

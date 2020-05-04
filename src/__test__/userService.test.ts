@@ -2,18 +2,18 @@ import { UserService } from '../services/userService';
 import { UserRepository } from '../repos/user-repo';
 import Validator from '../util/tools';
 import { User } from '../models/user';
-import { ResourceNotFoundError, BadRequestError } from '../errors/errors';
+import { ResourceNotFoundError, BadRequestError, AuthenticationError, ResourcePersistenceError } from '../errors/errors';
 
 jest.mock('../repos/user-repo', () => {
-    
+
     return new class UserRepository {
-            getAll = jest.fn();
-            getById = jest.fn();
-            getByUsername = jest.fn();
-            save = jest.fn();
-            checkCredentials = jest.fn();
-            update = jest.fn();
-            deleteById = jest.fn();
+        getAll = jest.fn();
+        getById = jest.fn();
+        getByUsername = jest.fn();
+        save = jest.fn();
+        checkCredentials = jest.fn();
+        update = jest.fn();
+        deleteById = jest.fn();
     }
 
 });
@@ -46,17 +46,14 @@ describe('userService', () => {
 
         // @ts-ignore
         sut = new UserService(mockRepo);
-    
+
     });
-
-
-
 
     test('should resolve to User when getUserById is given a valid an known id', async () => {
 
         // Arrange
         expect.assertions(3);
-        
+
         Validator.isStrings = jest.fn().mockReturnValue(true);
 
         mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
@@ -70,7 +67,26 @@ describe('userService', () => {
         expect(result.userpassword).toBeUndefined();
 
     });
+    test('should ResourceNotFoundError', async () => {
 
+        // Arrange
+        expect.assertions(1);
+
+        Validator.isStrings = jest.fn().mockReturnValue(true);
+
+        mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
+            return new Promise<any>((resolve) => resolve(null));
+        });
+        // Act
+        try {
+            let result = await sut.getByUsername("test");
+        }
+        // Assert
+        catch (e) {
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
+    });
     test('should reject with BadRequestError when username is given a incorrect one', async () => {
 
         // Arrange
@@ -90,7 +106,7 @@ describe('userService', () => {
 
         // Arrange
         expect.assertions(3);
-        
+
         Validator.isStrings = jest.fn().mockReturnValue(true);
 
         mockRepo.checkCredentials = jest.fn().mockImplementation((username: string, password: string) => {
@@ -108,7 +124,7 @@ describe('userService', () => {
     test('should reject with AuthenticationError when credential is wrong', async () => {
 
         // Arrange
-        mockRepo.checkCredentials = jest.fn().mockReturnValue(false);
+        mockRepo.checkCredentials = jest.fn().mockReturnValue(mockUsers[0]);
 
         // Act
         try {
@@ -116,6 +132,49 @@ describe('userService', () => {
         } catch (e) {
             // Assert
             expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
+    });
+    test('should reject with AuthenticationError with empty', async () => {
+
+        // Arrange
+        mockRepo.checkCredentials = jest.fn().mockReturnValue({});
+
+        // Act
+        try {
+            await sut.authenticateUser("aanderson", "notpassword");
+        } catch (e) {
+            // Assert
+            expect(e instanceof AuthenticationError).toBe(true);
+        }
+
+    });
+    test('should addNewUser', async () => {
+        expect.assertions(1);
+
+        // Arrange
+        let newUser = new User(6, 'test', 'password', 0, 'User')
+        mockRepo.save = jest.fn().mockReturnValue(newUser);
+
+        // Act
+
+        let result = await sut.addNewUser(newUser);
+        expect(result).toBeTruthy();
+
+    });
+    test('should not addNewUser', async () => {
+
+        // Arrange
+        mockRepo.save = jest.fn().mockReturnValue(mockUsers[4]);
+
+        // Act
+        try {
+            // empty invalid user
+            let user: User;
+            await sut.addNewUser(user);
+        } catch (e) {
+            // Assert
+            expect(e instanceof BadRequestError).toBe(true);
         }
 
     });

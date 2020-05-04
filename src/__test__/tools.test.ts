@@ -1,4 +1,9 @@
-import { ValidId, isStrings, isObject } from "../util/tools";
+import {     
+    ValidId,
+    isStrings,
+    isObject,
+    isEmptyObject,
+    isValidObject } from "../util/tools";
 import { User } from "../models/user";
 
 
@@ -103,5 +108,52 @@ describe('validator', () => {
         expect(result1).toBe(false);
         expect(result2).toBe(false);
         expect(result3).toBe(false);
+    });
+
+    test('isobject: return obj[key]', () => {
+
+        // Arrange
+        expect.assertions(2);
+
+        // Act
+        let result1 = isObject({test: "test", test2: "test2"});
+        let result2 = isObject({test: "test", test2: null}, "test2");
+
+        // Assert
+        expect(result1).toBe(true);
+        expect(result2).toBe(true);
+
+    });
+
+    test('isEmptyObject: boolean', () => {
+
+        // Arrange
+        expect.assertions(2);
+
+        // Act
+        let mockUser = new User(5, 'eeinstein', 'password', 0, 'User');
+        let result1 = isEmptyObject(mockUser);
+        let mockUser2 = {};
+        let result2 = isEmptyObject(mockUser2);
+
+        // Assert
+        expect(result1).toBe(false);
+        expect(result2).toBe(true);
+    });
+
+    test('isValidObject: return obj[key]', () => {
+
+        // Arrange
+        expect.assertions(2);
+
+        // Act
+        let mockUser = {test: "test", test2: "test2"};
+        let result1 = isValidObject(mockUser);
+        let mockUser2 = {test: null};
+        let result2 = isValidObject(mockUser2);
+
+        // Assert
+        expect(result1).toBe(true);
+        expect(result2).toBe(false);
     });
 })

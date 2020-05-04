@@ -1,4 +1,4 @@
-// currently for transpiling puspose: copy fro mrevaboard demo
+//import from revaboards by Wesley Singleton
 
 class ApplicationError {
 
@@ -57,12 +57,10 @@ class AuthenticationError extends ApplicationError {
 }
 
 class AuthorizationError extends ApplicationError {
-
     constructor(reason?: string) {
         super(403, reason);
         super.setMessage('You do not have permission to access this resource!');
     }
-
 }
 
 class InternalServerError extends ApplicationError {

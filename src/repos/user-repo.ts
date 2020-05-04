@@ -36,13 +36,10 @@ export class UserRepository implements CrudRepository<User> {
     }
     async getById(id: number): Promise<User> {
         return new Promise<User>((resolve, reject) => {
-                reject("new NotImplementedError()");
-            });
+            reject(new NotImplementedError());
+        });
     }
     async getByUsername(username: string): Promise<User> {
-        if(!isStrings(name)){
-            throw new BadRequestError();
-        }
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
@@ -59,9 +56,10 @@ export class UserRepository implements CrudRepository<User> {
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
-            let sql = `insert into app_users (username, userpassword, score, userrole) 
+            let sql = `insert into users (username, userpassword, score, userrole) 
             values ($1, $2, $3, $4) returning id`;
             let rs = await client.query(sql, [newUser.username, newUser.userpassword, 0, "tester"]);
+            newUser.id = rs.rows[0].id;
             return newUser;
         } catch (e) {
             throw new InternalServerError();

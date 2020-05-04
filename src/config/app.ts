@@ -14,7 +14,7 @@ const passportService = new PassportService(passportRepo);
 const eventRepo = new DailyEventRepository();
 const eventService = new DailyEventService(eventRepo);
 
-export {
+export default {
     userService,
     passportService,
     eventService,
