@@ -49,33 +49,37 @@ describe('userService', () => {
     
     });
 
-    test('should resolve to User[] (without passwords) when getAllUsers() successfully retrieves users from the data source', async () => {
+
+
+
+    test('should resolve to User when getUserById is given a valid an known id', async () => {
 
         // Arrange
-        expect.hasAssertions();
-        mockRepo.getAll = jest.fn().mockReturnValue(mockUsers);
+        expect.assertions(3);
+        
+        Validator.isStrings = jest.fn().mockReturnValue(true);
 
+        mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
+            return new Promise<User>((resolve) => resolve(mockUsers[0]));
+        });
         // Act
-        let result = await sut.getAllUsers();
-
+        let result = await sut.getByUsername("aanderson");
         // Assert
         expect(result).toBeTruthy();
-        expect(result.length).toBe(5);
-        result.forEach(val => expect(val.password).toBeUndefined());
+        expect(result.id).toBe(1);
+        expect(result.userpassword).toBeUndefined();
 
     });
 
-    test('should reject with ResourceNotFoundError when getAllUsers fails to get any users from the data source', async () => {
+    test('should reject with BadRequestError when username is given a incorrect one', async () => {
 
         // Arrange
-        expect.assertions(1);
-        mockRepo.getAll = jest.fn().mockReturnValue([]);
+        mockRepo.getByUsername = jest.fn().mockReturnValue(false);
 
         // Act
         try {
-            await sut.getAllUsers();
+            await sut.getByUsername("no one");
         } catch (e) {
-
             // Assert
             expect(e instanceof ResourceNotFoundError).toBe(true);
         }
@@ -87,106 +91,19 @@ describe('userService', () => {
         // Arrange
         expect.assertions(3);
         
-        Validator.isValidId = jest.fn().mockReturnValue(true);
+        Validator.isStrings = jest.fn().mockReturnValue(true);
 
-        mockRepo.getById = jest.fn().mockImplementation((id: number) => {
-            return new Promise<User>((resolve) => resolve(mockUsers[id - 1]));
+        mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
+            return new Promise<User>((resolve) => resolve(mockUsers[0]));
         });
-
-
         // Act
-        let result = await sut.getUserById(1);
-
+        let result = await sut.getByUsername("aanderson");
         // Assert
         expect(result).toBeTruthy();
         expect(result.id).toBe(1);
-        expect(result.password).toBeUndefined();
+        expect(result.userpassword).toBeUndefined();
 
     });
 
-    test('should reject with BadRequestError when getUserById is given a invalid value as an id (decimal)', async () => {
-
-        // Arrange
-        expect.hasAssertions();
-        mockRepo.getById = jest.fn().mockReturnValue(false);
-
-        // Act
-        try {
-            await sut.getUserById(3.14);
-        } catch (e) {
-
-            // Assert
-            expect(e instanceof BadRequestError).toBe(true);
-        }
-
-    });
-
-    test('should reject with BadRequestError when getUserById is given a invalid value as an id (zero)', async () => {
-
-        // Arrange
-        expect.hasAssertions();
-        mockRepo.getById = jest.fn().mockReturnValue(false);
-
-        // Act
-        try {
-            await sut.getUserById(0);
-        } catch (e) {
-
-            // Assert
-            expect(e instanceof BadRequestError).toBe(true);
-        }
-
-    });
-
-    test('should reject with BadRequestError when getUserById is given a invalid value as an id (NaN)', async () => {
-
-        // Arrange
-        expect.hasAssertions();
-        mockRepo.getById = jest.fn().mockReturnValue(false);
-
-        // Act
-        try {
-            await sut.getUserById(NaN);
-        } catch (e) {
-
-            // Assert
-            expect(e instanceof BadRequestError).toBe(true);
-        }
-
-    });
-
-    test('should reject with BadRequestError when getUserById is given a invalid value as an id (negative)', async () => {
-
-        // Arrange
-        expect.hasAssertions();
-        mockRepo.getById = jest.fn().mockReturnValue(false);
-
-        // Act
-        try {
-            await sut.getUserById(-2);
-        } catch (e) {
-
-            // Assert
-            expect(e instanceof BadRequestError).toBe(true);
-        }
-
-    });
-
-    test('should reject with ResourceNotFoundError if getByid is given an unknown id', async () => {
-
-        // Arrange
-        expect.hasAssertions();
-        mockRepo.getById = jest.fn().mockReturnValue(true);
-
-        // Act
-        try {
-            await sut.getUserById(9999);
-        } catch (e) {
-
-            // Assert
-            expect(e instanceof ResourceNotFoundError).toBe(true);
-        }
-
-    });
 
 });

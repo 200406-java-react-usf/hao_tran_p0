@@ -8,16 +8,6 @@ const eventService = AppConfig.eventService;
 const passportService = AppConfig.passportService;
 
 
-GameRouter.get('/all', async (req, res) => {
-    try {
-        console.log("game router called");
-        let allEvent = await passportService.getAll();
-        res.send(allEvent);
-    } catch (e) {
-        res.status(e.statusCode || 500).json(e);
-    }
-});
-
 GameRouter.get('/', async (req, res) => {
     try {
         console.log("game router called");
@@ -27,25 +17,39 @@ GameRouter.get('/', async (req, res) => {
     }
 });
 
+GameRouter.get('/all', async (req, res) => {
+    try {
+        console.log("game router called");
+        let allEvent = await eventService.getEvents();
+        res.send(allEvent);
+    } catch (e) {
+        res.status(e.statusCode || 500).json(e);
+    }
+});
+
+
+GameRouter.get('/nextevent', async (req, res) => {
+    try {
+        console.log("game router next event called");
+        let event = await eventService.getNextEvent();
+        res.send(event);
+    } catch (e) {
+        return res.status(e.statusCode || 500).json(e).send();
+    }
+});
+
+
 GameRouter.get('/eventlist', async (req, res) => {
     try {
         console.log("game router eventlist called");
-        let eventlist = await eventService.getAllEvents();
+        let eventlist = await eventService.getEvents();
         res.json(eventlist);
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }
 });
 
-GameRouter.get('/nextevent', async (req, res) => {
-    try {
-        console.log("game router next event called");
-        let event = await eventService.getNextEvent();
-        res.json(event);
-    } catch (e) {
-        return res.status(e.statusCode).json(e).send();
-    }
-});
+
 
 GameRouter.post('/group', async (req, res) => {
     try {

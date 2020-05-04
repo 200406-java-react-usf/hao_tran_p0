@@ -18,10 +18,20 @@ import {
 } from "../util/tools"
 
 export class DailyEventRepository implements CrudRepository<DailyEvent> {
-    getAll(): Promise<DailyEvent[]> {
-        return new Promise<DailyEvent[]>((resolve, reject) => {
-            reject("new NotImplementedError()");
-        });
+    async getAll(): Promise<DailyEvent[]> {
+        console.log("event repo called");
+        let client: PoolClient;
+        try {
+            client = await connectionPool.connect();
+            console.log(client);
+            let sql = "SELECT * FROM dailyevents";
+            let rs = await client.query(sql);
+            return  rs.rows.map(mapEventResult);
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
     }
     async getById(id: number): Promise<DailyEvent> {
         if (!ValidId(id)) {

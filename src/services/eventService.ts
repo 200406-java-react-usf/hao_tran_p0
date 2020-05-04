@@ -18,8 +18,9 @@ export class DailyEventService {
     constructor(private dailyEventuserRepo: DailyEventRepository) {
         this.dailyEventuserRepo = dailyEventuserRepo;
     }
-    async getAllEvents(): Promise<DailyEvent[]> {
+    async getEvents(): Promise<DailyEvent[]> {
         let eventlist: DailyEvent[] = await this.dailyEventuserRepo.getAll();
+        console.log(eventlist);
         if (isEmptyObject(eventlist)) {
             throw new ResourceNotFoundError;
         }
@@ -28,12 +29,12 @@ export class DailyEventService {
     async getNextEvent(): Promise<DailyEvent> {
         let events: DailyEvent[] = await this.dailyEventuserRepo.getUnselected();
         events = shuffle(events);
-        let nextPassport: DailyEvent = await this.dailyEventuserRepo.getById(event[0]);
-        if (isEmptyObject(nextPassport)) {
+        let nextEvent: DailyEvent = events[0];
+        if (isEmptyObject(nextEvent)) {
             throw new ResourceNotFoundError();
         } else {
-            await this.dailyEventuserRepo.updateSelected(nextPassport.id);
-            return nextPassport;
+            await this.dailyEventuserRepo.updateSelected(nextEvent.id);
+            return nextEvent;
         }
     }
     async resetEventList(): Promise<boolean> {

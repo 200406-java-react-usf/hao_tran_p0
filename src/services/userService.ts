@@ -28,7 +28,7 @@ export class UserService {
         if (isEmptyObject(user)) {
             throw new ResourceNotFoundError();
         }
-        return user;
+        return this.removePassword(user);
 
     }
     async authenticateUser(username: string, password: string): Promise<User> {

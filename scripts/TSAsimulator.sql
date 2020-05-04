@@ -7,7 +7,8 @@ grant all privileges
 on database TSAsimulator
 to tester;
 
-set search_path to TSAsimulator;
+set search_path
+to TSAsimulator;
 
 -- user
 create table users
@@ -61,25 +62,57 @@ create table religion_christian
 AS
 SELECT *
 FROM passports
-WHERE "religion" = 'Orthodox';
+WHERE "religion" = 'Orthodox' or "religion" = 'Catholic' or "religion" = 'Miaphysite';
 
 
+create table occupation_not_pilgrim
+AS
+SELECT *
+FROM passports
+WHERE "occupation" != 'Pilgrim';
+
+create table occupation_not_soldier
+AS
+SELECT *
+FROM passports
+WHERE "occupation" != 'Soldier';
+
+create table race_norse
+AS
+SELECT *
+FROM passports
+WHERE "race" = 'Norse' or "race" = 'Kievian';
+
+insert into dailyevents
+    (title, content, groupname, selected)
+values
+    ('Christian Only', 'only allow christians', 'religion_christian', false),
+    ('Crusade of the Beggars', 'no pilgrims', 'occupation_not_pilgrim', false),
+    ('Powerful Generals', 'no soldiers', 'occupation_not_soldier', false),
+    ('Varangian Guards', 'only allow Norse or Kievian', 'race_norse', false)
+;
 -- passport insert
 
 insert into passports
     (firstname, lastname, origin, occupation, race, religion, culture, property, selected)
 values
-    ('Nikolai', 'Adamos', 'Consantinuoplis', 'Poet', 'Greek', 'Orthodox', 'Greek', 100, false),
-    ('Halfdan', 'Bjornsson', 'Birka', 'Soldier', 'Norse', 'Germanic', 'Thule', 100, false)
+    ('Nikolaos', 'Adamos', 'Consantinuoplis', 'Poet', 'Greek', 'Orthodox', 'Roman Empire', 500, false),
+    ('Ioannes', 'Maliasenos', 'Consantinuoplis', 'Pilgrim', 'Greek', 'Orthodox', 'Roman Empire', 10, false),
+    ('Halfdan', 'Bjornsson', 'Birka', 'Soldier', 'Norse', 'Germanic', 'Svealand', 50, false),
+    ('Erik', 'Ivarsson', 'Gotland', 'Merchant', 'Norse', 'Germanic', 'Gotland', 1000, false),
+    ('Kapi', 'Stensson', 'Sjaelland', 'Soldier', 'Norse', 'Germanic', 'Tanmarkar', 1000, false),
+    ('Chao', 'Zhao', 'Cathay', 'Merchant', 'Chinese', 'Taoist', 'Tang', 5000, false),
+    ('Jan', 'Sokol ', 'Praha', 'Noble', 'Bohemian', 'Catholic', 'Holy Roman Empire', 0, false),
+    ('Otto', 'von Hesse', 'Hesse', 'Pilgrim', 'German', 'Germanic', 'Holy Roman Empire', 0, false),
+    ('Olga', 'Kiyevskaya', 'Kiev', 'Noble', 'Kievian', 'Slavic', 'Rus', 2000, false),
+    ('Ahmet', 'Omer', 'Diyari Bekir', 'Soldier', 'Trukish', 'Sunni', 'Sejuk', 200, false),
+    ('Abu', 'ibn Battuta', 'Tingi', 'Pilgrim', 'Morrocan', 'Sunni', 'Ayt Mrin', 800, false),
+    ('Lorenzo', 'da Venezia', 'Venezia', 'Merchant', 'Italian', 'Catholic', 'La Serenissima', 800, false),
+    ('David', 'Tumasyan', 'Yerewan', 'Merchant', 'Armenia', 'Miaphysite', 'Vaspowrakan', 1500, false)
 ;
 ​
 ​
-insert into dailyevents
-    (title, content, groupname, selected)
-values
-    ('Christian Only', 'only allow christians', 'religion_christian', false)
 
-;
 
 
 commit;
