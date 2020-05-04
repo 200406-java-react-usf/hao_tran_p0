@@ -50,7 +50,7 @@ export function mapEventResult(resultSet:DailyEventSchema): DailyEvent {
         resultSet.id,
         resultSet.title,
         resultSet.content,
-        resultSet.group,
+        resultSet.groupname,
         resultSet.selected
     );
 }

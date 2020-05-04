@@ -10,8 +10,7 @@ import {
 } from "../errors/errors";
 import {
     ValidId,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 } from "../util/tools"
 import { isString } from "util";
 
@@ -46,7 +45,7 @@ export class UserService {
                 throw new AuthenticationError();
             }
             this.removePassword(authUser);
-            return authUser;
+            return this.removePassword(authUser);
         } catch (e) {
             throw e;
         }

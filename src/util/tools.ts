@@ -33,22 +33,6 @@ export function isEmptyObject<T>(obj: T) {
     return obj && Object.keys(obj).length === 0;
 }
 
-export function shuffle(array:any[]) {
-    let i = array.length;
-    let temp;
-    let randomIndex;
-
-    // While there remain elements to shuffle...
-    while (i >= 0) {
-        randomIndex = Math.floor(Math.random() * i);
-        i -= 1;
-        // swap
-        temp = array[i];
-        array[i] = array[randomIndex];
-        array[randomIndex] = temp;
-    }
-    return array;
-}
 
 
 
@@ -57,6 +41,5 @@ export default {
     isStrings,
     isObject,
     isProperty,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 }

@@ -3,14 +3,14 @@ export class DailyEvent {
     id: number;
     title: string;
     content: string;
-    group: string;
+    groupname: string;
     selected: boolean;
 
-    constructor (id: number, title: string, content: string, group: string, selected:boolean) {
+    constructor (id: number, title: string, content: string, groupname: string, selected:boolean) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.group = group;
+        this.groupname = groupname;
         this.selected = selected;
     }
     

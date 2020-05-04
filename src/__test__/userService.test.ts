@@ -86,18 +86,18 @@ describe('userService', () => {
 
     });
 
-    test('should resolve to User when getUserById is given a valid an known id', async () => {
+    test('should authenticate the user with correct crdential', async () => {
 
         // Arrange
         expect.assertions(3);
         
         Validator.isStrings = jest.fn().mockReturnValue(true);
 
-        mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
+        mockRepo.checkCredentials = jest.fn().mockImplementation((username: string, password: string) => {
             return new Promise<User>((resolve) => resolve(mockUsers[0]));
         });
         // Act
-        let result = await sut.getByUsername("aanderson");
+        let result = await sut.authenticateUser("aanderson", "password");
         // Assert
         expect(result).toBeTruthy();
         expect(result.id).toBe(1);
@@ -105,5 +105,18 @@ describe('userService', () => {
 
     });
 
+    test('should reject with AuthenticationError when credential is wrong', async () => {
 
+        // Arrange
+        mockRepo.checkCredentials = jest.fn().mockReturnValue(false);
+
+        // Act
+        try {
+            await sut.authenticateUser("aanderson", "notpassword");
+        } catch (e) {
+            // Assert
+            expect(e instanceof ResourceNotFoundError).toBe(true);
+        }
+
+    });
 });

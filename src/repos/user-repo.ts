@@ -15,8 +15,7 @@ import {
 import {
     ValidId,
     isStrings,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 } from "../util/tools"
 
 export class UserRepository implements CrudRepository<User> {

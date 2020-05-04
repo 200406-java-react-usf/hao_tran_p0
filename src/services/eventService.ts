@@ -5,40 +5,37 @@ import {
     ResourcePersistenceError
 } from "../errors/errors";
 import { DailyEvent } from "../models/dailyEvent";
-import { Passport } from "../models/passport";
 import {
     ValidId,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 } from "../util/tools"
 
 
 
 export class DailyEventService {
-    constructor(private dailyEventuserRepo: DailyEventRepository) {
-        this.dailyEventuserRepo = dailyEventuserRepo;
+    constructor(private dailyEventRepo: DailyEventRepository) {
+        this.dailyEventRepo = dailyEventRepo;
     }
     async getEvents(): Promise<DailyEvent[]> {
-        let eventlist: DailyEvent[] = await this.dailyEventuserRepo.getAll();
-        console.log(eventlist);
+        let eventlist: DailyEvent[] = await this.dailyEventRepo.getAll();
         if (isEmptyObject(eventlist)) {
             throw new ResourceNotFoundError;
         }
         return eventlist;
     }
     async getNextEvent(): Promise<DailyEvent> {
-        let events: DailyEvent[] = await this.dailyEventuserRepo.getUnselected();
-        events = shuffle(events);
-        let nextEvent: DailyEvent = events[0];
+        let eventlist: DailyEvent[] = await this.dailyEventRepo.listUnselected();
+        let randomIndex = Math.floor(Math.random() * eventlist.length)
+        let nextEvent: DailyEvent = eventlist[randomIndex];
         if (isEmptyObject(nextEvent)) {
             throw new ResourceNotFoundError();
         } else {
-            await this.dailyEventuserRepo.updateSelected(nextEvent.id);
+            await this.dailyEventRepo.updateSelected(nextEvent.id);
             return nextEvent;
         }
     }
     async resetEventList(): Promise<boolean> {
-        let taskCheck = await this.dailyEventuserRepo.resetEvent();
+        let taskCheck = await this.dailyEventRepo.resetEvent();
         if (taskCheck) {
             return true;
         } else {

@@ -8,8 +8,7 @@ import {
 } from "../errors/errors";
 import {
     ValidId,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 } from "../util/tools"
 import { Passport } from "../models/passport";
 import { isString } from "util";
@@ -20,7 +19,6 @@ export class PassportService {
         this.passportRepo = passportRepo;
     }
     async getAll(): Promise<Passport[]> {
-        console.log("passport getall called");
         let userlist: Passport[] = await this.passportRepo.getAll();
         return userlist;
     }

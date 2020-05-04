@@ -23,6 +23,6 @@ export interface DailyEventSchema {
     id: number;
     title: string;
     content: string;
-    group: string;
+    groupname: string;
     selected: boolean;
 }

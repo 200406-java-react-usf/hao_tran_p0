@@ -13,20 +13,31 @@ import {
 } from "../errors/errors";
 import {
     ValidId,
-    isEmptyObject,
-    shuffle
+    isEmptyObject
 } from "../util/tools"
+import { Passport } from "../models/passport";
 
 export class DailyEventRepository implements CrudRepository<DailyEvent> {
     async getAll(): Promise<DailyEvent[]> {
-        console.log("event repo called");
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
-            console.log(client);
             let sql = "SELECT * FROM dailyevents";
             let rs = await client.query(sql);
-            return  rs.rows.map(mapEventResult);
+            return rs.rows.map(mapEventResult);
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
+    }
+    async listUnselected(): Promise<DailyEvent[]> {
+        let client: PoolClient;
+        try {
+            client = await connectionPool.connect();
+            let sql = "SELECT * FROM dailyevents WHERE selected = false";
+            let rs = await client.query(sql);
+            return rs.rows.map(mapEventResult);
         } catch (e) {
             throw new InternalServerError();
         } finally {
@@ -43,19 +54,6 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             let sql = "SELECT * FROM dailyevents where id=$1";
             let rs = await client.query(sql, [id]);
             return mapEventResult(rs.rows[0]);
-        } catch (e) {
-            throw new InternalServerError();
-        } finally {
-            client && client.release();
-        }
-    }
-    async getUnselected(): Promise<DailyEvent[]> {
-        let client: PoolClient;
-        try {
-            client = await connectionPool.connect();
-            let sql = "SELECT * FROM dailyevents WHERE selected = false";
-            let rs = await client.query(sql);
-            return  rs.rows.map(mapEventResult);
         } catch (e) {
             throw new InternalServerError();
         } finally {
