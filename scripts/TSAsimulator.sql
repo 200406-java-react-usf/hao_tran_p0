@@ -19,7 +19,7 @@ create table users
     score int not null,
     userrole varchar(25) not null,
 
-    constraint passports_pk primary key (id)
+    constraint users_pk primary key (id)
 );
 
 
@@ -82,7 +82,7 @@ AS
 SELECT *
 FROM passports
 WHERE "race" = 'Norse' or "race" = 'Kievian';
-
+--events
 insert into dailyevents
     (title, content, groupname, selected)
 values

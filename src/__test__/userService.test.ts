@@ -158,7 +158,7 @@ describe('userService', () => {
 
         // Act
 
-        let result = await sut.addNewUser(newUser);
+        let result = await sut.addNewUser("user", "test");
         expect(result).toBeTruthy();
 
     });
@@ -171,7 +171,7 @@ describe('userService', () => {
         try {
             // empty invalid user
             let user: User;
-            await sut.addNewUser(user);
+            await sut.addNewUser("user", "test");
         } catch (e) {
             // Assert
             expect(e instanceof BadRequestError).toBe(true);

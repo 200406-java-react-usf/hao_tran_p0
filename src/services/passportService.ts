@@ -37,23 +37,29 @@ export class PassportService {
         return nextPassport;
     }
     async getExclusionGrouplist(name: string): Promise<number[]> {
+        console.log("service: getExclusionGrouplist" + name);
         let passport: Passport[] = await this.passportRepo.getPassportInGroup(name);
+
         if (passport) {
             let passportList: number[] = [];
             for (let i = 0; i < passport.length; i++) {
                 passportList.push(passport[i].id);
             }
+            console.log("router: Grouplist " + passportList );
             return passportList;
         } else {
             throw new ResourceNotFoundError();
         }
     }
-    async checkIfInGroup(passport: Passport, name: string): Promise<Boolean> {
+    async checkIfInGroup(passportId: number, name: string): Promise<Boolean> {
+        console.log("router: grp check in grp "+ name);
+
         let idList: number[] = await this.getExclusionGrouplist(name);
         if (isEmptyObject(idList) || !idList) {
             throw new ResourceNotFoundError();
         }
-        let result: Boolean = idList.includes(passport.id);
+        let result: Boolean = idList.includes(passportId);
+        console.log("router: grp check complete");
         return result;
     }
     async resetPassportList(): Promise<boolean> {

@@ -45,11 +45,19 @@ export class UserService {
             throw e;
         }
     }
-    async addNewUser(newUser: User): Promise<User> {
+    async addNewUser(username:string, password:string): Promise<User> {
         try {
-            newUser.userrole = 'User'; // all new registers have 'User' role by default
+            let newUser = new User(0, username, password, 0, "user")
             const persistedUser = await this.userRepo.save(newUser);
             return this.removePassword(persistedUser);
+        } catch (e) {
+            throw new BadRequestError();
+        }
+    };
+    async updateScore(userid:number, delta:number): Promise<boolean> {
+        try {
+            await this.userRepo.updateScore(userid, delta);
+            return true;
         } catch (e) {
             throw new BadRequestError();
         }

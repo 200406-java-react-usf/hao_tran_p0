@@ -48,8 +48,9 @@ GameRouter.get('/eventlist', async (req, res) => {
 
 
 GameRouter.post('/groupcheck', async (req, res) => {
+    console.log("router: grp check "+req.body.groupname);
     try {
-        let passport = req.body.passport;
+        let passport = req.body.passportId;
         let groupname = req.body.groupname;
         let answer = await passportService.checkIfInGroup(passport, groupname);
         res.json(answer);

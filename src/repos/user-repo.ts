@@ -19,7 +19,9 @@ import {
 } from "../util/tools"
 
 export class UserRepository implements CrudRepository<User> {
+
     baseQuery = `select id, username, score from users`;
+
     async getAll(): Promise<User[]> {
         let client: PoolClient;
         try {
@@ -82,7 +84,20 @@ export class UserRepository implements CrudRepository<User> {
         }
     
     }
+    async updateScore(userId: number, score: number): Promise<boolean> {
+        let client: PoolClient;
 
+        try {
+            client = await connectionPool.connect();
+            let sql = `UPDATE users where id = $1 set score = $2`;
+            let rs = await client.query(sql, [userId, score]);
+            return true;
+        } catch (e) {
+            throw new InternalServerError();
+        } finally {
+            client && client.release();
+        }
+    }
     update(updatedUser: User): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             reject(new NotImplementedError());

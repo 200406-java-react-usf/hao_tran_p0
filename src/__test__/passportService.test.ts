@@ -241,7 +241,7 @@ describe('Passport Service', () => {
             return new Promise<Passport[]>((resolve) => resolve(mockPassports));
         });
         // Act
-        let result = await sut.checkIfInGroup(mockPassports[0], "test");
+        let result = await sut.checkIfInGroup(mockPassports[0].id, "test");
         // Assert
         expect(result).toBeTruthy();
     });
@@ -259,7 +259,7 @@ describe('Passport Service', () => {
         });
         // Act
         try {
-            let result = await sut.checkIfInGroup(mockPassports[0], "test");
+            let result = await sut.checkIfInGroup(mockPassports[0].id, "test");
         }
         // Assert
         catch (e) {
