@@ -8,9 +8,9 @@ export interface UserSchema {
 
 export interface PassportSchema {
     id: number;
-    firstName: string;
-    lastName: string;
-    nationality: string;
+    firstname: string;
+    lastname: string;
+    origin: string;
     occupation: string;
     race: string;
     religion: string;

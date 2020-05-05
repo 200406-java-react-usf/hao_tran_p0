@@ -26,7 +26,7 @@ GameRouter.get('/all', async (req, res) => {
 });
 
 
-GameRouter.get('/next', async (req, res) => {
+GameRouter.get('/nextevent', async (req, res) => {
     try {
         let event = await eventService.getNextEvent();
         res.send(event);
@@ -47,22 +47,21 @@ GameRouter.get('/eventlist', async (req, res) => {
 
 
 
-GameRouter.post('/group', async (req, res) => {
+GameRouter.post('/groupcheck', async (req, res) => {
     try {
         let passport = req.body.passport;
         let groupname = req.body.groupname;
-        let event = await passportService.checkIfInGroup(passport, groupname);
-        res.json(event);
+        let answer = await passportService.checkIfInGroup(passport, groupname);
+        res.json(answer);
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }
 });
 
-GameRouter.post('/nextpassport', async (req, res) => {
+GameRouter.get('/nextpassport', async (req, res) => {
     try {
-        let name = req.body.name;
-        let event = await passportService.getNextPassport();
-        res.json(event);
+        let passport = await passportService.getNextPassport();
+        res.json(passport);
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }

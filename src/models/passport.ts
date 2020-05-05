@@ -2,9 +2,9 @@
 export class Passport {
 
     id: number;
-    firstName: string;
-    lastName: string;
-    nationality: string;
+    firstname: string;
+    lastname: string;
+    origin: string;
     occupation: string;
     race: string;
     religion: string;
@@ -14,9 +14,9 @@ export class Passport {
 
     constructor (
             id: number,   
-            firstName: string,  
-            lastName: string, 
-            nationality: string,
+            firstname: string,  
+            lastname: string, 
+            origin: string,
             occupation: string,
             race: string,
             religion: string,
@@ -25,12 +25,11 @@ export class Passport {
             selected: boolean
         ) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationality = nationality;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.origin = origin;
         this.occupation = occupation;
         this.race = race;
-        this.nationality = nationality;
         this.religion = religion;
         this.culture = culture;
         this.property = property;

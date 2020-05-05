@@ -43,9 +43,9 @@ export function mapPassportResultSet(resultSet: PassportSchema): Passport {
     }
     return new Passport(
         resultSet.id,   
-        resultSet.firstName,  
-        resultSet.lastName, 
-        resultSet.nationality,
+        resultSet.firstname,  
+        resultSet.lastname, 
+        resultSet.origin,
         resultSet.occupation,
         resultSet.race,
         resultSet.religion,

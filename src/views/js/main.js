@@ -85,7 +85,7 @@ window.onload = function () {
         await timeout(500);
         $("#cube").addClass("inactive");
         await timeout(500);
-        $("#login_form").submit();
+        $("#register_form").submit();
     });
 }
 

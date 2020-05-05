@@ -27,7 +27,7 @@ export class DailyEventService {
         let eventlist: DailyEvent[] = await this.dailyEventRepo.listUnselected();
         let randomIndex = Math.floor(Math.random() * eventlist.length)
         let nextEvent: DailyEvent = eventlist[randomIndex];
-        
+        console.log("event service update selected")
         if (isEmptyObject(nextEvent)||!nextEvent) {
             throw new ResourceNotFoundError();
         } else {
