@@ -1,6 +1,4 @@
-export const ValidId = (id: number): boolean => {
-    return !!(id && typeof id === 'number' && Number.isInteger(id) && id > 0);
-};
+
 //return true if string
 export const isStrings = (...strs: string[]): boolean => {
     return (strs.filter(str => !str || typeof str !== 'string').length == 0);
@@ -12,7 +10,10 @@ export const isObject = (obj: Object, ...nullableProps: string[]) => {
         return obj[key];
     });
 };
-
+// check if valid id, >0 and is number
+export const ValidId = (id: number): boolean => {
+    return !!(id && typeof id === 'number' && Number.isInteger(id) && id > 0);
+};
 //return true if object is empty -- no result
 export function isEmptyObject<T>(obj: T) {
     return obj && Object.keys(obj).length === 0;

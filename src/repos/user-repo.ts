@@ -28,13 +28,13 @@ export class UserRepository implements CrudRepository<User> {
             client = await connectionPool.connect();
             let sql = `${this.baseQuery}`;
             let rs = await client.query(sql);
-            return  rs.rows.map(mapUserResultSet);
+            return rs.rows.map(mapUserResultSet);
         } catch (e) {
             throw new InternalServerError();
         } finally {
             client && client.release();
         }
-    
+
     }
     async getById(id: number): Promise<User> {
         return new Promise<User>((resolve, reject) => {
@@ -54,7 +54,7 @@ export class UserRepository implements CrudRepository<User> {
             client && client.release();
         }
     }
-    async save(newUser:User): Promise<User> {
+    async save(newUser: User): Promise<User> {
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
@@ -69,6 +69,7 @@ export class UserRepository implements CrudRepository<User> {
             client && client.release();
         }
     }
+    // for log in
     async checkCredentials(username: string, password: string) {
         let client: PoolClient;
 
@@ -82,20 +83,20 @@ export class UserRepository implements CrudRepository<User> {
         } finally {
             client && client.release();
         }
-    
+
     }
+    //only update score, only needs user id
     async updateScore(userId: number, score: number): Promise<boolean> {
         let client: PoolClient;
-        console.log('update score '+userId+ "  "+ score);
-        try {
-            client = await connectionPool.connect();
-            let sql = `UPDATE users set score = $2 where id = $1`;
-            let rs = await client.query(sql, [userId, score]);
-            return true;
-        } catch (e) {
-            throw new InternalServerError();
-        } finally {
+        client = await connectionPool.connect();
+        let sql = `UPDATE users set score = $2 where id = $1`;
+        let rs = await client.query(sql, [userId, score]);
+        if (rs) {
             client && client.release();
+            return true
+        } else {
+            client && client.release();
+            throw new InternalServerError();
         }
     }
     update(updatedUser: User): Promise<boolean> {

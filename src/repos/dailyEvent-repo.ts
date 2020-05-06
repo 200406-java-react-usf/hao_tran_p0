@@ -18,6 +18,7 @@ import {
 import { Passport } from "../models/passport";
 
 export class DailyEventRepository implements CrudRepository<DailyEvent> {
+
     async getAll(): Promise<DailyEvent[]> {
         let client: PoolClient;
         try {
@@ -30,7 +31,8 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
         } finally {
             client && client.release();
         }
-    }
+    };
+    // get random unselected event
     async listUnselected(): Promise<DailyEvent[]> {
         let client: PoolClient;
         try {
@@ -43,7 +45,8 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
         } finally {
             client && client.release();
         }
-    }
+    };
+    // get event by id
     async getById(id: number): Promise<DailyEvent> {
         let client: PoolClient;
         try {
@@ -57,6 +60,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
+    // mark event as selected
     async updateSelected(id: number): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -70,6 +74,7 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
+    //reset all event to default
     async resetEvent(): Promise<boolean> {
         let client: PoolClient;
         try {

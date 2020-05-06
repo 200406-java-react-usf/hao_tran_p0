@@ -6,6 +6,7 @@ export const AuthRouter = express.Router();
 
 const userService = AppConfig.userService;
 
+// login router
 AuthRouter.post('', async (req, res) => {
     try {
         const username = req.body.username;

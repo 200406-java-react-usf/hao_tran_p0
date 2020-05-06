@@ -18,17 +18,19 @@ export class PassportService {
     constructor(private passportRepo: PassportRepository) {
         this.passportRepo = passportRepo;
     }
+    //for testing, not used in game
     async getAll(): Promise<Passport[]> {
         let userlist: Passport[] = await this.passportRepo.getAll();
         return userlist;
-    }
+    };
+    //load random unselected passport
     async getNextPassport(): Promise<Passport> {
         let userlist: Passport[] = await this.passportRepo.getUnselected();
         if (isEmptyObject(userlist) || !userlist) {
             throw new ResourceNotFoundError();
         }
         let nextPassportId: Passport = userlist[Math.floor(Math.random() * userlist.length)];
-        let nextPassport: Passport = { ...await this.passportRepo.getById(nextPassportId.id) };
+        let nextPassport: Passport = await this.passportRepo.getById(nextPassportId.id);
         if (isEmptyObject(nextPassport) || !nextPassport) {
             throw new ResourceNotFoundError();
         }
@@ -36,6 +38,7 @@ export class PassportService {
         await this.passportRepo.updateSelected(nextPassportId.id);
         return nextPassport;
     }
+    //get passport id list that is allowed to get in
     async getExclusionGrouplist(name: string): Promise<number[]> {
         let passport: Passport[] = await this.passportRepo.getPassportInGroup(name);
 
@@ -49,6 +52,7 @@ export class PassportService {
             throw new ResourceNotFoundError();
         }
     }
+    //check if an passport is in grp
     async checkIfInGroup(passportId: number, name: string): Promise<Boolean> {
         let idList: number[] = await this.getExclusionGrouplist(name);
         if (isEmptyObject(idList) || !idList) {
@@ -64,6 +68,7 @@ export class PassportService {
         });
         return result;
     }
+    //reset all selected passports
     async resetPassportList(): Promise<boolean> {
         let taskCheck: boolean = await this.passportRepo.resetPassport();
         if (taskCheck) {

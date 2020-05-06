@@ -16,6 +16,7 @@ export class DailyEventService {
     constructor(private dailyEventRepo: DailyEventRepository) {
         this.dailyEventRepo = dailyEventRepo;
     }
+    // for testing, not in game
     async getEvents(): Promise<DailyEvent[]> {
         let eventlist: DailyEvent[] = await this.dailyEventRepo.getAll();
         if (isEmptyObject(eventlist)) {
@@ -23,11 +24,11 @@ export class DailyEventService {
         }
         return eventlist;
     }
+    // get random event
     async getNextEvent(): Promise<DailyEvent> {
         let eventlist: DailyEvent[] = await this.dailyEventRepo.listUnselected();
         let randomIndex = Math.floor(Math.random() * eventlist.length)
         let nextEvent: DailyEvent = eventlist[randomIndex];
-        console.log("event service update selected")
         if (isEmptyObject(nextEvent)||!nextEvent) {
             throw new ResourceNotFoundError();
         } else {
@@ -35,6 +36,7 @@ export class DailyEventService {
             return nextEvent;
         }
     }
+    // reset all selected events
     async resetEventList(): Promise<boolean> {
         let taskCheck = await this.dailyEventRepo.resetEvent();
         if (taskCheck) {

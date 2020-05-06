@@ -149,7 +149,8 @@ describe('userService', () => {
         }
 
     });
-    test('should addNewUser', async () => {
+
+    test('should addNewUser successfully', async () => {
         expect.assertions(1);
 
         // Arrange
@@ -158,22 +159,43 @@ describe('userService', () => {
 
         // Act
 
-        let result = await sut.addNewUser("user", "test");
+        let result = await sut.addNewUser(newUser.username, newUser.userpassword);
         expect(result).toBeTruthy();
 
     });
-    test('should not addNewUser', async () => {
-
-        // Arrange
-        mockRepo.save = jest.fn().mockReturnValue(mockUsers[4]);
-
+    test('should not addNewUser for invalid input', async () => {
         // Act
+        expect.assertions(1);
         try {
             // empty invalid user
             let user: User;
-            await sut.addNewUser("user", "test");
+            await sut.addNewUser(null, null);
         } catch (e) {
             // Assert
+            expect(e instanceof BadRequestError).toBe(true);
+        }
+
+    });
+
+    test('should update successfully', async () => {
+
+        expect.assertions(1);
+
+        mockRepo.updateScore = jest.fn().mockReturnValue(true);
+ 
+        let result = await sut.updateScore(1, 100);
+
+        expect(result).toBe(true);
+
+    });
+
+    test('should not update for invalid input', async () => {
+
+        expect.assertions(1);
+        try {
+            await sut.updateScore(null, null);
+        } catch (e) {
+
             expect(e instanceof BadRequestError).toBe(true);
         }
 

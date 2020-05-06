@@ -19,6 +19,7 @@ import {
 } from "../util/tools"
 
 export class PassportRepository implements CrudRepository<Passport> {
+    // not implemented in app, for testing
     async getAll(): Promise<Passport[]> {
         let client: PoolClient;
         try {
@@ -32,7 +33,8 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
 
-    }
+    };
+    // will get everything via inner join
     async getById(id: number): Promise<Passport> {
         let client: PoolClient;
         if (!ValidId(id)) {
@@ -40,7 +42,27 @@ export class PassportRepository implements CrudRepository<Passport> {
         }
         try {
             client = await connectionPool.connect();
-            let sql = "SELECT * FROM passports where id=$1";
+            let sql = 
+            `SELECT 
+             passports.id,
+             passports.firstname,
+             passports.lastname, 
+             origins.name as origin, 
+             occupations.name as occupation, 
+             races.name as race, 
+             religions.name as religion, 
+             cultures.name as culture, 
+             passports.property, 
+             passports.selected 
+             FROM passports 
+             JOIN origins ON 
+             passports.origin = origins.id  
+             JOIN occupations ON 
+             passports.occupation = occupations.id  
+             JOIN races ON passports.race = races.id  
+             JOIN religions ON passports.religion = religions.id  
+             JOIN cultures ON passports.culture = cultures.id 
+             where passports.id=$1`;
             let rs = await client.query(sql, [id]);
             return mapPassportResultSet(rs.rows[0]);
         } catch (e) {
@@ -49,11 +71,13 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
+    //only need the passport id
     async getUnselected(): Promise<Passport[]> {
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
-            let sql = "SELECT * FROM passports where selected = false";
+            let sql = 
+            `SELECT * from passports where selected = false`;
             let rs = await client.query(sql);
             return  rs.rows.map(mapPassportResultSet);
         } catch (e) {
@@ -62,6 +86,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
+    //mark loaded passport to selected
     async updateSelected(id: number): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -75,6 +100,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
+    // reset all passport to unselected
     async resetPassport(): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -88,6 +114,7 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
+    // get all the passports in a group
     async getPassportInGroup(name: string): Promise<Passport[]> {
         if(!isStrings(name)){
             throw new BadRequestError();
@@ -104,21 +131,22 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
+    
     save(newPassport: Passport): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
-            reject("new NotImplementedError()");
+            reject(new NotImplementedError());
         });
     }
 
     update(updatedPassport: Passport): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            reject("new NotImplementedError()");
+            reject(new NotImplementedError());
         });
     }
 
     deleteById(id: number): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            reject("NotImplementedError()");
+            reject(new NotImplementedError());
         });
     }
 }

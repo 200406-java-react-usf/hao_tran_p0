@@ -13,8 +13,6 @@ import {
     AuthenticationError
 } from "../errors/errors";
 
-
-
 export class UserService {
     constructor(private userRepo: UserRepository) {
         this.userRepo = userRepo;
@@ -25,11 +23,11 @@ export class UserService {
         if (isEmptyObject(user) || !user) {
             throw new ResourceNotFoundError();
         } else {
-            console.log("user service get un: "+ user.id);
             return this.removePassword(user);
         }
 
-    }
+    };
+    //log in
     async authenticateUser(username: string, password: string): Promise<User> {
         try {
 
@@ -45,19 +43,20 @@ export class UserService {
         } catch (e) {
             throw e;
         }
-    }
-    async addNewUser(username:string, password:string): Promise<User> {
+    };
+    // register new user
+    async addNewUser(username: string, password: string): Promise<User> {
         try {
-            let newUser = new User(0, username, password, 0, "user")
+            let newUser = new User(0, username, password, 0, "User")
             const persistedUser = await this.userRepo.save(newUser);
             return this.removePassword(persistedUser);
         } catch (e) {
             throw new BadRequestError();
         }
     };
-    async updateScore(userId:number, score:number): Promise<boolean> {
+    // only update score
+    async updateScore(userId: number, score: number): Promise<boolean> {
         try {
-            console.log('update score '+userId+ "  "+ score);
             await this.userRepo.updateScore(userId, score);
             return true;
         } catch (e) {

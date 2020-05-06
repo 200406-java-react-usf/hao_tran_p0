@@ -7,7 +7,7 @@ export const GameRouter = express.Router();
 const eventService = AppConfig.eventService;
 const passportService = AppConfig.passportService;
 
-
+// render main page
 GameRouter.get('', async (req, res) => {
     try {
         res.render('pages/game');
@@ -16,6 +16,7 @@ GameRouter.get('', async (req, res) => {
     }
 });
 
+//for testing, not implemented in game
 GameRouter.get('/all', async (req, res) => {
     try {
         let allEvent = await eventService.getEvents();
@@ -25,7 +26,7 @@ GameRouter.get('/all', async (req, res) => {
     }
 });
 
-
+//load next event, random
 GameRouter.get('/nextevent', async (req, res) => {
     try {
         let event = await eventService.getNextEvent();
@@ -35,7 +36,7 @@ GameRouter.get('/nextevent', async (req, res) => {
     }
 });
 
-
+//for testing, not in game, get all events
 GameRouter.get('/eventlist', async (req, res) => {
     try {
         let eventlist = await eventService.getEvents();
@@ -46,7 +47,7 @@ GameRouter.get('/eventlist', async (req, res) => {
 });
 
 
-
+//check if id is in grp
 GameRouter.post('/groupcheck', async (req, res) => {
     try {
         let passportId = req.body.passportId;
@@ -58,6 +59,7 @@ GameRouter.post('/groupcheck', async (req, res) => {
     }
 });
 
+//get next random passport
 GameRouter.get('/nextpassport', async (req, res) => {
     try {
         let passport = await passportService.getNextPassport();
@@ -67,6 +69,7 @@ GameRouter.get('/nextpassport', async (req, res) => {
     }
 });
 
+// reset all game db to default
 GameRouter.get('/resetgame', async (req, res) => {
     try {
         await passportService.resetPassportList();

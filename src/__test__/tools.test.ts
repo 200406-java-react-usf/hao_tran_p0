@@ -8,7 +8,6 @@ import { User } from "../models/user";
 
 
 describe('validator', () => {
-
     test('should return true when isValidId is provided a valid id', () => {
         
         // Arrange
@@ -25,6 +24,7 @@ describe('validator', () => {
         expect(result3).toBe(true);
 
     });
+
 
     test('should return false when isValidId is provided a invalid id (falsy)', () => {
 
