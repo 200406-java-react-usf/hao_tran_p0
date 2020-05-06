@@ -25,6 +25,7 @@ export class UserService {
         if (isEmptyObject(user) || !user) {
             throw new ResourceNotFoundError();
         } else {
+            console.log("user service get un: "+ user.id);
             return this.removePassword(user);
         }
 
@@ -54,14 +55,16 @@ export class UserService {
             throw new BadRequestError();
         }
     };
-    async updateScore(userid:number, delta:number): Promise<boolean> {
+    async updateScore(userId:number, score:number): Promise<boolean> {
         try {
-            await this.userRepo.updateScore(userid, delta);
+            console.log('update score '+userId+ "  "+ score);
+            await this.userRepo.updateScore(userId, score);
             return true;
         } catch (e) {
             throw new BadRequestError();
         }
     };
+    //private method to remove password from user
     private removePassword(user: User): User {
         if (!user || !user.userpassword) return user;
         let usr = { ...user };

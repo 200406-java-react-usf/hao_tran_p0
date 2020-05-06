@@ -10,7 +10,6 @@ AuthRouter.post('', async (req, res) => {
     try {
         const username = req.body.username;
         const password = req.body.password;
-        console.log(req.body);
         let authUser = await userService.authenticateUser(username, password);
 
         let payload = new Principal(authUser.id, authUser.username, authUser.score, authUser.userrole);

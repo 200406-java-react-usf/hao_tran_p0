@@ -79,8 +79,8 @@ export class PassportRepository implements CrudRepository<Passport> {
         let client: PoolClient;
         try {
             client = await connectionPool.connect();
-            let sql = "UPDATE passports SET selected = false WHERE selected = true";
-            let rs = await client.query(sql);
+            let sql = "UPDATE passports SET selected = $1 WHERE selected = $2";
+            await client.query(sql, [false, true]);
             return true
         } catch (e) {
             throw new InternalServerError();
@@ -89,8 +89,6 @@ export class PassportRepository implements CrudRepository<Passport> {
         }
     }
     async getPassportInGroup(name: string): Promise<Passport[]> {
-        console.log("router getPassportInGroup " + name);
-
         if(!isStrings(name)){
             throw new BadRequestError();
         }
@@ -99,7 +97,6 @@ export class PassportRepository implements CrudRepository<Passport> {
             client = await connectionPool.connect();
             let sql = "SELECT * FROM "+ name;
             let rs = await client.query(sql);
-            console.log(rs.rows.map(mapPassportResultSet));
             return  rs.rows.map(mapPassportResultSet);
         } catch (e) {
             throw new InternalServerError();

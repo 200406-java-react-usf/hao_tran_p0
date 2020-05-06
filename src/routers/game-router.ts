@@ -1,5 +1,5 @@
 import express from 'express';
-import AppConfig from "../config/app";
+import AppConfig from '../config/app';
 
 
 export const GameRouter = express.Router();
@@ -8,7 +8,7 @@ const eventService = AppConfig.eventService;
 const passportService = AppConfig.passportService;
 
 
-GameRouter.get('/', async (req, res) => {
+GameRouter.get('', async (req, res) => {
     try {
         res.render('pages/game');
     } catch (e) {
@@ -48,11 +48,10 @@ GameRouter.get('/eventlist', async (req, res) => {
 
 
 GameRouter.post('/groupcheck', async (req, res) => {
-    console.log("router: grp check "+req.body.groupname);
     try {
-        let passport = req.body.passportId;
+        let passportId = req.body.passportId;
         let groupname = req.body.groupname;
-        let answer = await passportService.checkIfInGroup(passport, groupname);
+        let answer = await passportService.checkIfInGroup(passportId, groupname);
         res.json(answer);
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
@@ -66,4 +65,14 @@ GameRouter.get('/nextpassport', async (req, res) => {
     } catch (e) {
         return res.status(e.statusCode).json(e).send();
     }
+});
+
+GameRouter.get('/resetgame', async (req, res) => {
+    try {
+        await passportService.resetPassportList();
+        await eventService.resetEventList();
+    } catch (e) {
+        return res.status(e.statusCode).json(e).send();
+    }
+    res.send('resetting');
 });
