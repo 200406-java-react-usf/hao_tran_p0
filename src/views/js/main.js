@@ -1,10 +1,9 @@
-window.onload = function () {
+window.onload = function() {
     //define timeout
-    const timeout = function (ms) {
-        return new Promise(resolve => setTimeout(resolve, ms)
-        )
+    const timeout = function(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
-    async function close_ani(){
+    async function close_ani() {
         if ($("#front_page").attr("clicked") == "false") {
             $("#front_page").removeClass("unselected");
             $("#front_page").addClass("default_content_right");
@@ -14,7 +13,7 @@ window.onload = function () {
             $("#back_page").addClass("default_content_right");
         }
     };
-    $("#box1").click(async function (event) {
+    $("#box1").click(async function(event) {
         console.log("main clicked");
         if ($("#box1").attr("clicked") == "false") {
             $("#box1").addClass("boxclicked");
@@ -25,7 +24,7 @@ window.onload = function () {
         $("#cube").removeClass("inactive");
         await timeout(500);
     });
-    $("#cube").click(async function (event) {
+    $("#cube").click(async function(event) {
         if ($("#book_conatianer").attr("clicked") == "false") {
             $("#book_conatianer").addClass("book_open");
             $("#book_conatianer").attr("clicked", "true");
@@ -36,7 +35,7 @@ window.onload = function () {
 
     })
 
-    $("#back_page").click(async function (event) {
+    $("#back_page").click(async function(event) {
         if ($("#back_page").attr("clicked") == "false") {
             $("#back_page").addClass("ani_select");
             $("#back_page").removeClass("unselected");
@@ -52,7 +51,7 @@ window.onload = function () {
         }
     });
 
-    $("#front_page").click(async function (event) {
+    $("#front_page").click(async function(event) {
         if ($("#front_page").attr("clicked") == "false") {
             $("#front_page").removeClass("unselected");
             $("#front_page").addClass("ani_select");
@@ -68,7 +67,7 @@ window.onload = function () {
         }
     });
 
-    $("#login_form_submit").click(async function (event) {
+    $("#login_form_submit").click(async function(event) {
         close_ani()
         await timeout(500);
         $("#book_conatianer").removeClass("book_open");
@@ -78,7 +77,7 @@ window.onload = function () {
         $("#login_form").submit();
     });
 
-    $("#register_form_submit").click(async function (event) {
+    $("#register_form_submit").click(async function(event) {
         close_ani()
         await timeout(500);
         $("#book_conatianer").removeClass("book_open");
@@ -88,6 +87,3 @@ window.onload = function () {
         $("#register_form").submit();
     });
 }
-
-
-
