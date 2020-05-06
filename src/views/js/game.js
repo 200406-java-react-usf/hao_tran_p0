@@ -217,7 +217,7 @@ window.onload = function() {
             await $.get(currentURL + '/game/resetgame', function(data) {
                 game.close_ani();
                 timeout(100);
-                window.location.href = '';
+                window.location.href = "http://localhost:8080/";
             })
         },
         updateUserScore: async function() {
