@@ -28,6 +28,10 @@ Suggestions:
 - [ ] Jest
 - [ ] Git SCM (on GitHub)
 
+## Additional Front End Tools
+- [ ] Jquery
+- [ ] EJS
+
 ## Init Instructions
 - Select a project idea and submit it to trainer for approval. Be sure to include:
   - The 3 data entities that you will be persisting
