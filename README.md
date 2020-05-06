@@ -4,7 +4,7 @@
 #ERD
 ![Image of ERD](https://raw.githubusercontent.com/200406-java-react-usf/hao_tran_p0/master/ERD/ERD.jpeg)
 
-This webpage game, inspired by "Paper Please" by Lucas Pope, utilizing RESTful API and SQL Database. Player can enter session and play a selection game, the decision will be match with the answer in the database. The Player will save the score in the server database as well.
+This webpage game, inspired by "Papers, Please" by Lucas Pope, utilizing RESTful API and SQL Database. Player can enter session and play a selection game, the decision will be match with the answer in the database. The Player will save the score in the server database as well.
 
 ## Extra Feature
 - [ ] Byzantine Theme! learning history is fun.
