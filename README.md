@@ -4,13 +4,10 @@
 #ERD
 ![Image of ERD](https://raw.githubusercontent.com/200406-java-react-usf/hao_tran_p0/master/ERD/ERD.jpeg)
 
-For Project 0, you will be building a RESTful API using TypeScript and Express. Associates are allowed to come up with their own API idea, but it must be approved by the trainer; suggested ideas are provided below.
+This webpage game, inspired by "Paper Please" by Lucas Pope, utilizing RESTful API and SQL Database. Player can enter session and play a selection game, the decision will be match with the answer in the database. The Player will save the score in the server database as well.
 
-Suggestions: 
-- resource management system API
-- learning management system API
-- any kind of social media API
-- mobile banking application API
+## Extra Feature
+- [ ] Byzantine Theme! learning history is fun.
 
 ## Features
 - [ ] RESTful API (At least Level 2 of the [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html))
