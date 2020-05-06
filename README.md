@@ -28,6 +28,7 @@ This webpage game, inspired by "Papers, Please" by Lucas Pope, utilizing RESTful
 ## Additional Front End Tools
 - [ ] Jquery
 - [ ] EJS
+- [ ] AJAX
 
 ## Init Instructions
 - Select a project idea and submit it to trainer for approval. Be sure to include:
