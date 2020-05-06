@@ -14,7 +14,6 @@ window.onload = function() {
         }
     };
     $("#box1").click(async function(event) {
-        console.log("main clicked");
         if ($("#box1").attr("clicked") == "false") {
             $("#box1").addClass("boxclicked");
             $("#box1").attr("clicked", "true");
@@ -32,7 +31,6 @@ window.onload = function() {
             $("#back_page").removeClass("default_content_right");
             $("#back_page").addClass("unselected");
         }
-
     })
 
     $("#back_page").click(async function(event) {

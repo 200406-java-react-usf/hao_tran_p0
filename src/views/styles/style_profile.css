@@ -3,10 +3,12 @@ body {
 }
 
 .box {
-    /* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/wood_panels.png'); */
     background-size: cover;
     width: 500px;
-    background-color: #e4710d;
+    background: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    background-attachment: fixed;
     background-blend-mode: difference;
     height: 90%;
     margin: auto;
@@ -92,9 +94,8 @@ body {
     backface-visibility: hidden;
     transform: translateZ(6px);
     transition: transform 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
-    /* background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/magazine_cover2.jpg'); */
     background-size: cover !important;
-    background-color: #f31893;
+    background: url("../img/book-cover.png");
 }
 
 .cube_inner div.page_left {
@@ -106,9 +107,8 @@ body {
     transform-origin: 1px 0px;
     transition: transform 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
     transform: translateZ(5px -1);
-    /* background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/magazine_left2.jpg'); */
     background-size: cover !important;
-    background-color: #583447;
+    background: url("../img/book-cover-inner.png");
 }
 
 .cube_inner div.page_right {
@@ -117,9 +117,8 @@ body {
     height: 560px;
     transform-origin: 50% 50%;
     transform: translateZ(4px);
-    /* background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/magazine_right2.jpg'); */
     background-size: cover !important;
-    background-color: rgb(245, 7, 7);
+    background: url("../img/book-cover-inner.png");
 }
 
 .cube_inner div.page_right .profileHolder {
@@ -130,7 +129,6 @@ body {
     transform: translateZ(4px);
     margin-top: 50px;
     height: 10%;
-    /* background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/magazine_right2.jpg'); */
     background-size: cover !important;
     background-color: red;
 }
@@ -151,7 +149,7 @@ body {
     transform-origin: 50% 50%;
     width: 100px;
     transform: rotateY(90deg) translateZ(-50px) translateX(50px);
-    background-color: #298aaf;
+    background: url("../img/book-cover.png");
 }
 
 .cube_inner div.cube_right {
@@ -193,7 +191,7 @@ body {
 
 .show_content_right {
     margin: 20px;
-    background-color: #50a3c4;
+    background: url("../img/book-page.png");
     z-index: 2;
     transform-origin: 0% 100%;
     box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
@@ -202,7 +200,7 @@ body {
 
 .default_content_right {
     margin: 20px;
-    background-color: #a2f801;
+    background-color: url("../img/book-page-b.png");
     z-index: 0;
     transform-origin: 0% 100%;
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
@@ -214,7 +212,7 @@ body {
     margin-left: 20px !important;
     width: 330px !important;
     height: 420px !important;
-    background-color: #a2f801;
+    background: url("../img/book-page-b.png");
     box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
     z-index: 0;
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
@@ -222,7 +220,7 @@ body {
 
 .ani_select {
     transform: rotate(30deg);
-    background-color: #50a3c4;
+    background: url("../img/book-page.png");
     margin-left: 100px;
     box-shadow: 5px 20px 10px rgba(0, 0, 0, 0.4);
     z-index: 1;
@@ -250,17 +248,18 @@ input {
 .label {
     margin-left: 300px;
     writing-mode: vertical-rl;
-    background-color: #eeff00;
+    background: url("../img/label.png");
     padding-top: 50px;
     line-height: 80px;
     width: 80px;
     height: -webkit-calc(100% - 50px);
     display: block !important;
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
+    color: rgb(87, 74, 34);
 }
 
 .unselected .label {
-    background-color: #645f1c;
+    background: url("../img/label-back.png");
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
 }
 
@@ -273,10 +272,14 @@ input {
 .start {
     margin-top: 360px !important;
     margin-left: 245px !important;
-    background-color: #583447;
-    color: white;
+    background: url("../img/button.png");
+    font-size: 40px;
+    color: rgb(87, 74, 34);
+    line-height: 100px;
+    text-align: center;
     width: 100px !important;
     height: 100px !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
 }
 
@@ -285,10 +288,11 @@ input {
     display: block;
     margin-top: 360px !important;
     margin-left: 230px !important;
-    background-color: #583447;
+    background: url("../img/button.png");
     color: white;
     width: 100px !important;
     height: 100px !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
     transition: all 1s cubic-bezier(0.815, 0.005, 0.18, 1.005);
 }
 

@@ -138,11 +138,9 @@ window.onload = function() {
             if (roundCount % 2 == 0) {
                 await game.roundEven();
                 await game.checkGroup(game.passport2, game.group);
-                $('#round_display').text(game.round);
             } else {
                 await game.roundOdd();
                 await game.checkGroup(game.passport1, game.group);
-                $('#round_display').text(game.round);
             }
         },
         confirmAnswer: async function(selection) {
