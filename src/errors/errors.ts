@@ -1,4 +1,4 @@
-//import from revaboards by Wesley Singleton
+/*import from revaboards by Wesley Singleton*/
 
 class ApplicationError {
 

@@ -19,7 +19,11 @@ import {
 } from "../util/tools"
 
 export class PassportRepository implements CrudRepository<Passport> {
-    // not implemented in app, for testing
+    
+    /**
+     * Gets all
+     * @returns all 
+     */
     async getAll(): Promise<Passport[]> {
         let client: PoolClient;
         try {
@@ -34,7 +38,12 @@ export class PassportRepository implements CrudRepository<Passport> {
         }
 
     };
-    // will get everything via inner join
+    
+    /**
+     * Gets by id
+     * @param id 
+     * @returns by passport 
+     */
     async getById(id: number): Promise<Passport> {
         let client: PoolClient;
         if (!ValidId(id)) {
@@ -71,7 +80,13 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
-    //only need the passport id
+
+
+
+    /**
+     * Gets unselected
+     * @returns passport list
+     */
     async getUnselected(): Promise<Passport[]> {
         let client: PoolClient;
         try {
@@ -86,7 +101,12 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
-    //mark loaded passport to selected
+    
+    /**
+     * Updates selected
+     * @param id 
+     * @returns boolean 
+     */
     async updateSelected(id: number): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -100,7 +120,10 @@ export class PassportRepository implements CrudRepository<Passport> {
             client && client.release();
         }
     }
-    // reset all passport to unselected
+    /**
+     * Resets passport
+     * @returns boolean 
+     */
     async resetPassport(): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -115,6 +138,11 @@ export class PassportRepository implements CrudRepository<Passport> {
         }
     }
     // get all the passports in a group
+    /**
+     * Gets passport in group
+     * @param name 
+     * @returns passport in group 
+     */
     async getPassportInGroup(name: string): Promise<Passport[]> {
         if(!isStrings(name)){
             throw new BadRequestError();
@@ -132,6 +160,11 @@ export class PassportRepository implements CrudRepository<Passport> {
         }
     }
     
+    /**
+     * no implemented
+     * 
+     * @returns none
+     */
     save(newPassport: Passport): Promise<Passport> {
         return new Promise<Passport>((resolve, reject) => {
             reject(new NotImplementedError());

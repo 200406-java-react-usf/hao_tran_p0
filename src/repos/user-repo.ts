@@ -69,7 +69,13 @@ export class UserRepository implements CrudRepository<User> {
             client && client.release();
         }
     }
-    // for log in
+
+    /**
+     * Checks credentials
+     * @param username 
+     * @param password 
+     * @returns  user
+     */
     async checkCredentials(username: string, password: string) {
         let client: PoolClient;
 
@@ -85,7 +91,13 @@ export class UserRepository implements CrudRepository<User> {
         }
 
     }
-    //only update score, only needs user id
+
+    /**
+     * Updates score
+     * @param userId 
+     * @param score 
+     * @returns boolean 
+     */
     async updateScore(userId: number, score: number): Promise<boolean> {
         let client: PoolClient;
         client = await connectionPool.connect();

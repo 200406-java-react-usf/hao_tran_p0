@@ -32,7 +32,10 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     };
-    // get random unselected event
+    /**
+     * Gets get random unselected event
+     */
+    
     async listUnselected(): Promise<DailyEvent[]> {
         let client: PoolClient;
         try {
@@ -46,7 +49,11 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     };
-    // get event by id
+    /**
+     * Gets event  event by id
+     */
+
+
     async getById(id: number): Promise<DailyEvent> {
         let client: PoolClient;
         try {
@@ -60,7 +67,12 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
-    // mark event as selected
+    
+    /**
+     * Updates selected
+     * @param id 
+     * @returns boolean 
+     */
     async updateSelected(id: number): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -74,7 +86,11 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
-    //reset all event to default
+    
+    /**
+     * Resets event
+     * @returns boolean 
+     */
     async resetEvent(): Promise<boolean> {
         let client: PoolClient;
         try {
@@ -88,6 +104,12 @@ export class DailyEventRepository implements CrudRepository<DailyEvent> {
             client && client.release();
         }
     }
+
+    /**
+     * not implemented
+     * 
+     *
+     */
     save(newEvent: DailyEvent): Promise<DailyEvent> {
         return new Promise<DailyEvent>((resolve, reject) => {
             reject(new NotImplementedError());
