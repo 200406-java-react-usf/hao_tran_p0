@@ -1,4 +1,20 @@
+@font-face {
+    font-family: 'Vinque-Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Vinque-Regular'), url('../font/vinque.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Gingerbread';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Gingerbread Initials'), url('../font/Gingerbread Initials.woff') format('woff');
+}
+
 body {
+    font-family: 'Vinque-Regular';
+    font-size: 20px;
     background-color: #062738;
 }
 
@@ -276,7 +292,7 @@ input {
 .form_holder {
     width: -webkit-calc(100% - 80px) !important;
     height: 100% !important;
-    display: inline-block !important;
+    display: block !important;
 }
 
 .login_form {
@@ -287,7 +303,20 @@ input {
     margin: 5px;
 }
 
+.login_form_title {
+    font-size: 40px;
+}
+
+P.drop-cap:first-letter {
+    font-family: 'Gingerbread';
+    font-size: 100px;
+    float: left;
+}
+
 input {
+    font-family: 'Vinque-Regular';
+    color: rgb(119, 29, 29);
+    font-size: 30px;
     background-color: rgba(255, 255, 255, 0);
     border-style: none;
 }
